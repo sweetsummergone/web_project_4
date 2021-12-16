@@ -1,0 +1,85 @@
+@import url("./vendor/normalize.css");
+@import url("./fonts/fonts.css");
+
+.page {
+  max-width: 100vw;
+  min-height: 100vh;
+  background: #000;
+  color: white;
+  font-family: Inter;
+}
+
+.header {
+  margin: 45px auto 36.25px auto;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  max-width: 880px;
+  min-height: 74px;
+}
+
+.header__logo {
+}
+
+.content {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile__photo {
+  max-width: 120px;
+  min-height: 120px;
+  border-radius: 50%;
+}
+
+.profile__button-add {
+  background: #000;
+  color: white;
+  min-width: 150px;
+  min-height: 50px;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 2px;
+  margin-left: 165px;
+}
+
+.info {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info__container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.info__button-edit {
+  margin-left: 18px;
+  max-width: 24px;
+  max-height: 24px;
+  background: #000;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+}
+
+.info__name {
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.info__whois {
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
