@@ -4,7 +4,7 @@
 .modal {
   position: absolute;
   min-width: 100%;
-  min-height: 100%;
+  height: 100%;
 }
 
 .modal__hidden {
@@ -12,10 +12,10 @@
 }
 
 .modal__overlay {
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  top: 0;
   min-width: 100%;
-  min-height: 1217px;
+  min-height: 100%;
   background: #000;
   opacity: 0.5;
 }
@@ -255,6 +255,32 @@
 }
 
 @media screen and (max-width: 879px) {
+  .modal {
+    min-height: 100%;
+  }
+  .modal__button-close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: calc(-68.24px + 13.62px);
+  }
+  .modal__form {
+    min-width: 282px;
+    top: calc(282px / 2 + 123px);
+  }
+  .modal__content {
+    max-width: 238px;
+    margin: 25px auto 25px auto;
+  }
+  .modal__name {
+    min-width: 238px;
+  }
+  .modal__whois {
+    min-width: 238px;
+  }
+  .modal__button-save {
+    min-width: 238px;
+  }
   .header {
     margin-left: 27px;
   }
