@@ -253,3 +253,41 @@
 
   color: #545454;
 }
+
+@media screen and (max-width: 879px) {
+  .header {
+    margin-left: 27px;
+  }
+  .profile {
+    flex-direction: column;
+  }
+  .profile__photo {
+    margin-bottom: 30px;
+  }
+  .info {
+    margin-left: 0;
+  }
+  .info__name {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+    text-align: center;
+  }
+  .info__whois {
+    text-align: center;
+  }
+  .info__container {
+    margin-bottom: 14px;
+  }
+  .profile__button-add {
+    margin: 36px auto 36px auto;
+    min-width: 282px;
+  }
+  .facebook {
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .footer {
+    margin-left: 19px;
+  }
+}
