@@ -11,6 +11,7 @@
 @import url("../blocks/modal/__name/modal__name.css");
 @import url("../blocks/modal/__whois/modal__whois.css");
 @import url("../blocks/modal/__button-save/modal__button-save.css");
+@import url("../blocks/modal/__button-save/__button-save_disabled/modal__button-save_disabled.css");
 @import url("../blocks/modal/__button-close/modal__button-close.css");
 @import url("../blocks/modal/__close-image/modal__close-image.css");
 
