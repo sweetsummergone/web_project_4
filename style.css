@@ -232,14 +232,22 @@
   line-height: 29px;
 }
 
+.facebook__like {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.facebook__like:hover {
+  opacity: 0.5;
+}
+
+.facebook__like-liked {
+  background-image: url("./images/liked.svg");
+}
+
 .footer {
   max-width: 880px;
   margin: 0 auto;
-}
-
-.footer__like {
-  cursor: pointer;
-  margin-left: auto;
 }
 
 .footer__author {

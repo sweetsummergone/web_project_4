@@ -1,7 +1,12 @@
 let buttonEdit = document.querySelector(".info__button-edit");
 let buttonClose = document.querySelector(".modal__button-close");
 let buttonSave = document.querySelector(".modal__button-save");
+let buttonsLike = document.querySelectorAll(".facebook__like");
 let modalElement = document.querySelector(".modal");
+
+function toggleLike(event) {
+  event.currentTarget.classList.toggle("facebook__like-liked");
+}
 
 function toggleModal() {
   modalElement.classList.toggle("modal__hidden");
@@ -27,3 +32,8 @@ function saveChanges() {
 buttonEdit.addEventListener("click", toggleModal);
 buttonClose.addEventListener("click", toggleModal);
 buttonSave.addEventListener("click", saveChanges);
+
+for (let i = 0; i < buttonsLike.length; i++) {
+  let button = buttonsLike[i];
+  button.addEventListener("click", toggleLike, false);
+}
