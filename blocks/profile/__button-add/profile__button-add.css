@@ -7,7 +7,7 @@
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 2px;
-  margin-left: 165px;
+  margin-left: auto;
 }
 
 .profile__button-add:hover {
