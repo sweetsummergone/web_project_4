@@ -2,6 +2,9 @@
   margin-left: 30px;
   display: flex;
   flex-direction: column;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 879px) {

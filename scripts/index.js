@@ -22,12 +22,7 @@ function saveChanges() {
   let newName = document.querySelector(".modal__name");
   let newActivity = document.querySelector(".modal__whois");
 
-  if (
-    newName.value !== "" &&
-    newActivity.value !== "" &&
-    newName.value.length < 24 &&
-    newActivity.value.length < 32
-  ) {
+  if (newName.value !== "" && newActivity.value !== "") {
     name.innerText = newName.value;
     activity.innerText = newActivity.value;
   }
