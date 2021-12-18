@@ -1,0 +1,8 @@
+.facebook__like {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.facebook__like:hover {
+  opacity: 0.5;
+}

@@ -5,7 +5,7 @@ let buttonsLike = document.querySelectorAll(".facebook__like");
 let modalElement = document.querySelector(".modal");
 
 function toggleLike(event) {
-  event.currentTarget.classList.toggle("facebook__like-liked");
+  event.currentTarget.classList.toggle("facebook__like_liked");
 }
 
 function toggleModal() {

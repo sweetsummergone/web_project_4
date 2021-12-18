@@ -1,0 +1,17 @@
+.modal__whois {
+  outline: none;
+  min-width: 358px;
+  margin-top: 54px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.modal__whois:placeholder-shown {
+  border-bottom: 1px solid #000; /* Red border only if the input is empty */
+}
+
+@media screen and (max-width: 879px) {
+  .modal__whois {
+    min-width: 238px;
+  }
+}

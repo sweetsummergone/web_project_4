@@ -1,0 +1,13 @@
+.info__button-edit {
+  cursor: pointer;
+  margin-left: 18px;
+  max-width: 24px;
+  max-height: 24px;
+  background: #000;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+}
+
+.info__button-edit:hover {
+  opacity: 0.6;
+}

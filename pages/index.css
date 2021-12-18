@@ -1,0 +1,50 @@
+@import url("../vendor/normalize.css");
+@import url("../fonts/fonts.css");
+
+/* Modal */
+@import url("../blocks/modal/modal.css");
+@import url("../blocks/modal/__hidden/modal__hidden.css");
+@import url("../blocks/modal/__form/modal__form.css");
+@import url("../blocks/modal/__overlay/modal__overlay.css");
+@import url("../blocks/modal/__content/modal__content.css");
+@import url("../blocks/modal/__title/modal__title.css");
+@import url("../blocks/modal/__name/modal__name.css");
+@import url("../blocks/modal/__whois/modal__whois.css");
+@import url("../blocks/modal/__button-save/modal__button-save.css");
+@import url("../blocks/modal/__button-close/modal__button-close.css");
+@import url("../blocks/modal/__close-image/modal__close-image.css");
+
+/* Page */
+@import url("../blocks/page/page.css");
+
+/* Header */
+@import url("../blocks/header/header.css");
+@import url("../blocks/header/__logo/header__logo.css");
+
+/* Content */
+@import url("../blocks/content/content.css");
+
+/* Profile */
+@import url("../blocks/profile/profile.css");
+@import url("../blocks/profile/__photo/profile__photo.css");
+@import url("../blocks/profile/__button-add/profile__button-add.css");
+
+/* Info */
+@import url("../blocks/info/info.css");
+@import url("../blocks/info/__container/info__container.css");
+@import url("../blocks/info/__button-edit/info__button-edit.css");
+@import url("../blocks/info/__name/info__name.css");
+@import url("../blocks/info/__whois/info__whois.css");
+
+/* Facebook */
+@import url("../blocks/facebook/facebook.css");
+@import url("../blocks/facebook/__card/facebook__card.css");
+@import url("../blocks/facebook/__image/facebook__image.css");
+@import url("../blocks/facebook/__footer/facebook__footer.css");
+@import url("../blocks/facebook/__name/facebook__name.css");
+@import url("../blocks/facebook/__like/facebook__like.css");
+@import url("../blocks/facebook/__like/_liked/facebook__like_liked.css");
+
+/* Footer */
+@import url("../blocks/footer/footer.css");
+@import url("../blocks/footer/__author/footer__author.css");

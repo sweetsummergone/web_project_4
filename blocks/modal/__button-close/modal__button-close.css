@@ -1,0 +1,22 @@
+.modal__button-close {
+  cursor: pointer;
+  position: absolute;
+  right: -48.25px;
+  top: -48.25px;
+  min-height: 48.25px;
+  min-width: 48.25px;
+  transform: rotate(-45deg);
+}
+
+.modal__button-close:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 879px) {
+  .modal__button-close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: calc(-68.24px + 13.62px);
+  }
+}

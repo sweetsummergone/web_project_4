@@ -1,0 +1,14 @@
+.info__whois {
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 879px) {
+  .info__whois {
+    text-align: center;
+  }
+}
