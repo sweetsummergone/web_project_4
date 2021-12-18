@@ -10,6 +10,7 @@ function toggleLike(event) {
 
 function toggleModal() {
   modalElement.classList.toggle("modal__hidden");
+  renderInput();
 }
 
 function saveChanges() {
@@ -27,6 +28,14 @@ function saveChanges() {
     name.innerText = newName.value;
     activity.innerText = newActivity.value;
   }
+  toggleModal();
+}
+
+function renderInput() {
+  let modalName = document.querySelector(".modal__name");
+  let modalActivity = document.querySelector(".modal__whois");
+  modalName.value = document.querySelector(".info__name").innerText;
+  modalActivity.value = document.querySelector(".info__whois").innerText;
 }
 
 buttonEdit.addEventListener("click", toggleModal);
