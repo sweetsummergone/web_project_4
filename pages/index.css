@@ -3,13 +3,14 @@
 
 /* Modal */
 @import url("../blocks/modal/modal.css");
-@import url("../blocks/modal/__hidden/modal__hidden.css");
+@import url("../blocks/modal/_hidden/modal_hidden.css");
 @import url("../blocks/modal/__form/modal__form.css");
 @import url("../blocks/modal/__overlay/modal__overlay.css");
 @import url("../blocks/modal/__content/modal__content.css");
 @import url("../blocks/modal/__title/modal__title.css");
-@import url("../blocks/modal/__name/modal__name.css");
-@import url("../blocks/modal/__whois/modal__whois.css");
+@import url("../blocks/modal/__input/modal__input.css");
+@import url("../blocks/modal/__input/modal__input-name.css");
+@import url("../blocks/modal/__input/modal__input-whois.css");
 @import url("../blocks/modal/__button-save/modal__button-save.css");
 @import url("../blocks/modal/__button-save/__button-save_disabled/modal__button-save_disabled.css");
 @import url("../blocks/modal/__button-close/modal__button-close.css");

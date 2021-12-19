@@ -1,4 +1,11 @@
 .facebook__like {
+  padding: 0;
+  border: none;
+  background: none;
+  background-image: url("../../../images/like.svg");
+  background-repeat: no-repeat;
+  min-height: 19px;
+  min-width: 21px;
   cursor: pointer;
   margin-left: auto;
 }

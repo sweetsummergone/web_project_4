@@ -10,20 +10,29 @@
   <body class="page">
     <div class="modal modal__hidden">
       <div class="modal__overlay"></div>
+      <!-- Misunderstood here. How exactly to do an shadow effect while modal is opened without extra overlay? :) -->
       <div class="modal__form">
-        <div class="modal__button-close">
+        <button type="button" class="modal__button-close">
           <img
             class="modal__close-image"
             src="./images/plus.svg"
-            alt="Add button image"
+            alt="Close button image"
           />
-        </div>
-        <div class="modal__content">
+        </button>
+        <form class="modal__content" name="Form">
           <h2 class="modal__title">Edit profile</h2>
-          <input class="modal__name" type="text" placeholder="Name" />
-          <input class="modal__whois" type="text" placeholder="Activity" />
-          <button class="modal__button-save">Save</button>
-        </div>
+          <input
+            class="modal__input modal__input-name"
+            type="text"
+            placeholder="Name"
+          />
+          <input
+            class="modal__input modal__input-whois"
+            type="text"
+            placeholder="Activity"
+          />
+          <input type="submit" class="modal__button-save" value="Save" />
+        </form>
       </div>
     </div>
     <header class="header">
@@ -34,7 +43,7 @@
       />
     </header>
     <main class="content">
-      <div class="profile">
+      <section class="profile">
         <img
           src="./images/avatar.png"
           alt="Your beautiful photo"
@@ -52,99 +61,75 @@
         <button class="profile__button-add">
           <img src="./images/plus.svg" alt="Add button image" />
         </button>
-      </div>
-      <div class="facebook">
-        <div class="facebook__card">
+      </section>
+      <ul class="facebook">
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card1.png"
             alt="Few boats on water with beautiful mountain background"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Yosemite Valley</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Yosemite Valley</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-        <div class="facebook__card">
+        </li>
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card2.png"
             alt="Down on the river to lake with pines around"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Lake Louise</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Lake Louise</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-        <div class="facebook__card">
+        </li>
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card3.png"
             alt="Nighty mountains and many stars in the sky"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Bald Mountains</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Bald Mountains</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-        <div class="facebook__card">
+        </li>
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card4.png"
             alt="Aqua lake with two mountains around"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Latemar</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Latemar</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-        <div class="facebook__card">
+        </li>
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card5.png"
             alt="Coast of crystal water and one beautiful mountain in the background"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Vanoise National Park of America</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Vanoise National Park of America</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-        <div class="facebook__card">
+        </li>
+        <li class="facebook__card">
           <img
             class="facebook__image"
             src="./images/cards/card6.png"
             alt="Sunset on forest mountains which stays in a row"
           />
           <div class="facebook__footer">
-            <p class="facebook__name">Lago di Braies</p>
-            <img
-              src="./images/like.svg"
-              alt="Like icon as heart"
-              class="facebook__like"
-            />
+            <h2 class="facebook__name">Lago di Braies</h2>
+            <button class="facebook__like"></button>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </main>
     <footer class="footer">
       <p class="footer__author">© 2021 Around The U.S.</p>
