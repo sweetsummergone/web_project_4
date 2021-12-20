@@ -1,5 +1,6 @@
 .info__whois {
   margin: 0;
+  max-width: calc(880px - 150px - 120px);
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -11,6 +12,7 @@
 
 @media screen and (max-width: 879px) {
   .info__whois {
+    max-width: 282px;
     text-align: center;
   }
 }

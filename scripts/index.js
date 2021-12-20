@@ -6,28 +6,35 @@ let modalElement = document.querySelector(".modal");
 let modalForm = document.querySelector(".modal__content");
 let userName = document.querySelector(".info__name");
 let userActivity = document.querySelector(".info__whois");
-let modalName = document.querySelector(".modal__input-name");
-let modalActivity = document.querySelector(".modal__input-whois");
+let modalName = document.querySelector(".modal__input_type_name");
+let modalActivity = document.querySelector(".modal__input_type_whois");
 
 function toggleLike(event) {
   event.currentTarget.classList.toggle("facebook__like_liked");
 }
 
-function toggleModal() {
-  modalElement.classList.toggle("modal_hidden");
+function openModal() {
+  modalElement.classList.remove("modal_hidden");
+  modalName.value = userName.textContent;
+  modalActivity.value = userActivity.textContent;
+  renderInput();
+}
+
+function closeModal() {
+  modalElement.classList.add("modal_hidden");
   renderInput();
 }
 
 function saveChanges(evt) {
   evt.preventDefault();
-  let newName = document.querySelector(".modal__input-name");
-  let newActivity = document.querySelector(".modal__input-whois");
+  let newName = document.querySelector(".modal__input_type_name");
+  let newActivity = document.querySelector(".modal__input_type_whois");
 
   if (newName.value !== "" && newActivity.value !== "") {
     userName.innerText = newName.value;
     userActivity.innerText = newActivity.value;
   }
-  toggleModal();
+  closeModal();
 }
 
 function renderInput() {
@@ -45,8 +52,8 @@ function saveInput() {
   modalActivity.value = document.querySelector(".info__whois").innerText;
 }
 
-buttonEdit.addEventListener("click", toggleModal);
-buttonClose.addEventListener("click", toggleModal);
+buttonEdit.addEventListener("click", openModal);
+buttonClose.addEventListener("click", closeModal);
 modalForm.addEventListener("submit", saveChanges);
 
 modalName.addEventListener("input", renderInput);
