@@ -8,6 +8,8 @@
   color: white;
   background: #000;
   border-radius: 2px;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .modal__button-save:hover {
@@ -17,5 +19,7 @@
 @media screen and (max-width: 879px) {
   .modal__button-save {
     min-width: 238px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

@@ -8,5 +8,7 @@
 @media screen and (max-width: 879px) {
   .header {
     margin-left: 27px;
+    margin-top: 28px;
+    min-height: calc(32px + 24px);
   }
 }

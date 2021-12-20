@@ -1,8 +1,11 @@
 .info__button-edit {
+  padding: 0;
+  background-image: url("../../../images/edit.svg");
+  background-repeat: no-repeat;
   cursor: pointer;
   margin-left: 18px;
-  max-width: 24px;
-  max-height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   background: #000;
   border: 1px solid #ffffff;
   box-sizing: border-box;
@@ -11,4 +14,12 @@
 
 .info__button-edit:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 879px) {
+  .info__button-edit {
+    min-width: 18px;
+    min-height: 18px;
+    margin-left: 10px;
+  }
 }

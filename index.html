@@ -8,24 +8,26 @@
     <title>Around the U.S.</title>
   </head>
   <body class="page">
-    <div class="modal modal__hidden">
+    <div class="modal modal_hidden">
       <img class="modal__overlay" src="./images/overlay.svg" alt="Overlay" />
-      <!-- Misunderstood here. How exactly to do an shadow effect while modal is opened without extra overlay? :) -->
-      <div class="modal__form">
+      <div class="modal__content">
         <button type="button" class="modal__button-close"></button>
-        <form class="modal__content" name="Form">
+        <!-- There is type of button -->
+        <form class="modal__form" name="Form">
           <h2 class="modal__title">Edit profile</h2>
           <input
-            class="modal__input modal__input-name"
+            name="name"
+            class="modal__input modal__input_type_name"
             type="text"
             placeholder="Name"
           />
           <input
-            class="modal__input modal__input-whois"
+            name="whois"
+            class="modal__input modal__input_type_whois"
             type="text"
             placeholder="Activity"
           />
-          <input type="submit" class="modal__button-save" value="Save" />
+          <button type="submit" class="modal__button-save">Save</button>
         </form>
       </div>
     </div>
@@ -46,15 +48,11 @@
         <div class="info">
           <div class="info__container">
             <h1 class="info__name">Jacques Cousteau</h1>
-            <button class="info__button-edit">
-              <img src="./images/edit.svg" alt="" />
-            </button>
+            <button type="button" class="info__button-edit"></button>
           </div>
           <p class="info__whois">Explorer</p>
         </div>
-        <button class="profile__button-add">
-          <img src="./images/plus.svg" alt="Add button image" />
-        </button>
+        <button type="button" class="profile__button-add"></button>
       </section>
       <ul class="facebook">
         <li class="facebook__card">
@@ -65,7 +63,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Yosemite Valley</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
         <li class="facebook__card">
@@ -76,7 +74,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Lake Louise</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
         <li class="facebook__card">
@@ -87,7 +85,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Bald Mountains</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
         <li class="facebook__card">
@@ -98,7 +96,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Latemar</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
         <li class="facebook__card">
@@ -109,7 +107,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Vanoise National Park of America</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
         <li class="facebook__card">
@@ -120,7 +118,7 @@
           />
           <div class="facebook__footer">
             <h2 class="facebook__name">Lago di Braies</h2>
-            <button class="facebook__like"></button>
+            <button type="button" class="facebook__like"></button>
           </div>
         </li>
       </ul>

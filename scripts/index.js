@@ -14,7 +14,7 @@ function toggleLike(event) {
 }
 
 function toggleModal() {
-  modalElement.classList.toggle("modal__hidden");
+  modalElement.classList.toggle("modal_hidden");
   renderInput();
 }
 
