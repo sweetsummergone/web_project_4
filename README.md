@@ -26,6 +26,5 @@ Used for modal window of name changing and like/dislike system.
 Enjoy of this!
 
 P.S.
-GitHub pages are not avaible for a while. I'm working on it.
-BUT
-You can find it [HERE](https://sweetsummergone.github.io/web_project_4) when it will be avaiable:)
+GitHub pages
+You can find it [HERE](https://sweetsummergone.github.io/web_project_4/)
