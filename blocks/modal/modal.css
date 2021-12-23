@@ -8,6 +8,7 @@
 
 @media screen and (max-width: 879px) {
   .modal {
-    min-height: 100%;
+    top: 10px;
+    max-height: 322px;
   }
 }
