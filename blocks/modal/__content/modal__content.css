@@ -19,6 +19,5 @@
   .modal__content {
     max-height: 322px;
     min-width: 282px;
-    top: calc(304px / 2 + 123px);
   }
 }
