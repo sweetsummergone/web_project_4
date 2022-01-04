@@ -2,14 +2,4 @@
   width: 282px;
   height: 282px;
   border-radius: 10px 10px 0px 0px;
-  /* transition */
-  transition: all 0.35s ease-in-out;
-  -moz-transition: all 0.35s ease-in-out;
-  -webkit-transition: all 0.35s ease-in-out;
-  -o-transition: all 0.35s ease-in-out;
-  -ms-transition: all 0.35s ease-in-out;
-}
-
-.facebook__image:hover {
-  transform: scale(1, 1.05);
 }

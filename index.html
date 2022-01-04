@@ -53,78 +53,21 @@
         </div>
         <button type="button" class="profile__button-add"></button>
       </section>
-      <ul class="facebook">
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card1.png"
-            alt="Few boats on water with beautiful mountain background"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Yosemite Valley</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card2.png"
-            alt="Down on the river to lake with pines around"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Lake Louise</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card3.png"
-            alt="Nighty mountains and many stars in the sky"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Bald Mountains</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card4.png"
-            alt="Aqua lake with two mountains around"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Latemar</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card5.png"
-            alt="Coast of crystal water and one beautiful mountain in the background"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Vanoise National Park of America</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-        <li class="facebook__card">
-          <img
-            class="facebook__image"
-            src="./images/cards/card6.png"
-            alt="Sunset on forest mountains which stays in a row"
-          />
-          <div class="facebook__footer">
-            <h2 class="facebook__name">Lago di Braies</h2>
-            <button type="button" class="facebook__like"></button>
-          </div>
-        </li>
-      </ul>
+      <ul class="facebook"></ul>
     </main>
     <footer class="footer">
       <p class="footer__author">© 2021 Around The U.S.</p>
     </footer>
+    <template id="facebook__card">
+      <li class="facebook__card">
+        <button type="button" class="facebook__delete"></button>
+        <img class="facebook__image"/>
+        <div class="facebook__footer">
+          <h2 class="facebook__name"></h2>
+          <button type="button" class="facebook__like"></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

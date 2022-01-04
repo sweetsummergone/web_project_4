@@ -41,6 +41,7 @@
 @import url("../blocks/facebook/__footer/facebook__footer.css");
 @import url("../blocks/facebook/__name/facebook__name.css");
 @import url("../blocks/facebook/__like/facebook__like.css");
+@import url("../blocks/facebook/__delete/facebook__delete.css");
 @import url("../blocks/facebook/__like/_liked/facebook__like_liked.css");
 
 /* Footer */
