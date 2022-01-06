@@ -26,8 +26,6 @@
   .modal__button-close {
     min-height: 26px;
     min-width: 26px;
-    cursor: pointer;
-    right: 0;
     right: 3px;
     top: calc(-68.24px + 22px);
   }
