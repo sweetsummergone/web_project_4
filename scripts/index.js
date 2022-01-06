@@ -1,14 +1,20 @@
 let buttonEdit = document.querySelector(".info__button-edit");
-let buttonClose = document.querySelector(".modal__button-close");
+let buttonAdd = document.querySelector(".profile__button-add");
+let buttonClose = Array.from(document.querySelectorAll(".modal__button-close"));
 let buttonSave = document.querySelector(".modal__button-save");
-let buttonsLike = document.querySelectorAll(".facebook__like");
-let modalElement = document.querySelector(".modal");
-let modalForm = document.querySelector(".modal__content");
+let buttonSavePhoto = document.querySelector(".modal__button-save-photo");
+let modal = Array.from(document.querySelectorAll(".modal"));
+let modalEdit = document.querySelector(".modal_edit");
+let modalAdd = document.querySelector(".modal_add");
+let modalForm = Array.from(document.querySelectorAll(".modal__content"));
 let userName = document.querySelector(".info__name");
 let userActivity = document.querySelector(".info__whois");
 let modalName = document.querySelector(".modal__input_type_name");
 let modalActivity = document.querySelector(".modal__input_type_whois");
+let modalAddTitle = document.querySelector(".modal__input_type_title");
+let modalAddUrl = document.querySelector(".modal__input_type_url");
 
+const facebook = document.querySelector(".facebook");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -36,45 +42,91 @@ const initialCards = [
   }
 ];
 
-const facebook = document.querySelector(".facebook");
 
 // add content
 initialCards.forEach(card => {
-  const cardTemplate = document.querySelector("#facebook__card").content;
-  
-  // clone the content of the template tag 
-  const cardElement = cardTemplate.querySelector('.facebook__card').cloneNode(true);
-  cardElement.querySelector(".facebook__image").src = card.link;
-  cardElement.querySelector(".facebook__name").textContent = card.name;
-
-  // make it appear on the page
-  facebook.append(cardElement); 
+  addCard(card.link,card.name,"append");
 });
 
-function toggleLike(event) {
-  event.currentTarget.classList.toggle("facebook__like_liked");
+let buttonDelete = Array.from(document.querySelectorAll(".facebook__delete"));
+let images = Array.from(document.querySelectorAll(".facebook__image"));
+
+function deleteCard(evt){
+  evt.currentTarget.parentNode.remove();
 }
 
-function openModal() {
-  modalElement.classList.remove("modal_hidden");
+function openImage(evt) {
+  // const modalPopup = document.querySelector("#modal__popup").content;
+
+  // const popupElement = modalPopup.querySelector('.modal__popup').cloneNode(true);
+
+  let modalPopup = document.querySelector(".modal__popup");
+  let modalImage = document.querySelector(".modal__popup_image");
+  let modalTitle = document.querySelector(".modal__popup_title");
+  modalImage.src = evt.currentTarget.src
+  modalTitle.textContent = evt.currentTarget.alt;
+  modalPopup.classList.toggle("modal_hidden");
+}
+
+function openEdit() {
+  modalEdit.classList.remove("modal_hidden");
   modalName.value = userName.textContent;
   modalActivity.value = userActivity.textContent;
   renderInput();
 }
 
+function openAdd() {
+  modalAdd.classList.remove("modal_hidden");
+  renderPhotoInput();
+}
+
 function closeModal() {
-  modalElement.classList.add("modal_hidden");
+  modal.forEach(item => {
+    item.classList.add("modal_hidden");
+  })
   renderInput();
+}
+
+function addCard(url,name,position) {
+  const cardTemplate = document.querySelector("#facebook__card").content;
+  
+  // clone the content of the template tag 
+  const cardElement = cardTemplate.querySelector('.facebook__card').cloneNode(true);
+  cardElement.querySelector(".facebook__image").src = url;
+  cardElement.querySelector(".facebook__image").alt = name;
+  cardElement.querySelector(".facebook__name").textContent = name;
+  
+  cardElement.querySelector(".facebook__like").addEventListener("click", function (evt) {
+    evt.target.classList.toggle("facebook__like_liked");
+  });
+  // make it appear on the page
+  switch(position) {
+    case "append":
+      facebook.append(cardElement);    
+      break;
+    case "prepend":
+      facebook.prepend(cardElement); 
+      break;
+  }
 }
 
 function saveChanges(evt) {
   evt.preventDefault();
-  let newName = document.querySelector(".modal__input_type_name");
-  let newActivity = document.querySelector(".modal__input_type_whois");
-
-  if (newName.value !== "" && newActivity.value !== "") {
-    userName.innerText = newName.value;
-    userActivity.innerText = newActivity.value;
+  if(evt.currentTarget.classList.contains("modal__content-edit")) {
+    let newName = document.querySelector(".modal__input_type_name");
+    let newActivity = document.querySelector(".modal__input_type_whois");
+  
+    if (newName.value !== "" && newActivity.value !== "") {
+      userName.innerText = newName.value;
+      userActivity.innerText = newActivity.value;
+    }
+  }
+  if(evt.currentTarget.classList.contains("modal__content-add")) {
+    let url = document.querySelector(".modal__input_type_url").value;
+    let title = document.querySelector(".modal__input_type_title").value;
+    if (url !== "" && title !== "") {
+      addCard(url,title,"prepend")
+    }
   }
   closeModal();
 }
@@ -89,19 +141,41 @@ function renderInput() {
   }
 }
 
+function renderPhotoInput() {
+  if (modalAddUrl.value === "" || modalAddTitle.value === "") {
+    buttonSavePhoto.disabled = true;
+    buttonSavePhoto.classList.add("modal__button-save_disabled");
+  } else {
+    buttonSavePhoto.disabled = false;
+    buttonSavePhoto.classList.remove("modal__button-save_disabled");
+  }
+}
+
 function saveInput() {
   modalName.value = document.querySelector(".info__name").innerText;
   modalActivity.value = document.querySelector(".info__whois").innerText;
 }
 
-buttonEdit.addEventListener("click", openModal);
-buttonClose.addEventListener("click", closeModal);
-modalForm.addEventListener("submit", saveChanges);
+buttonEdit.addEventListener("click", openEdit);
+buttonAdd.addEventListener("click", openAdd);
+modalForm.forEach(modal => {
+  modal.addEventListener("submit", saveChanges)
+});
+buttonClose.forEach(button => {
+  button.addEventListener("click", closeModal);
+});
+buttonSavePhoto.addEventListener("click", addCard)
+buttonDelete.forEach(button => {
+  button.addEventListener("click",deleteCard);
+})
+
+
+images.forEach(img => {
+  img.addEventListener("click",openImage)
+})
 
 modalName.addEventListener("input", renderInput);
 modalActivity.addEventListener("input", renderInput);
 
-for (let i = 0; i < buttonsLike.length; i++) {
-  let button = buttonsLike[i];
-  button.addEventListener("click", toggleLike, false);
-}
+modalAddTitle.addEventListener("input", renderPhotoInput);
+modalAddUrl.addEventListener("input", renderPhotoInput);
