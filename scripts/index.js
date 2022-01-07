@@ -13,11 +13,13 @@ const modalActivity = document.querySelector(".modal__input_type_whois");
 const modalAddTitle = document.querySelector(".modal__input_type_title");
 const modalAddUrl = document.querySelector(".modal__input_type_url");
 // 
+const contentEdit = document.querySelector(".modal__content-edit");
+const contentAdd = document.querySelector(".modal__content-add");
+//
 const userName = document.querySelector(".info__name");
 const userActivity = document.querySelector(".info__whois");
 // 
 const modalList = Array.from(document.querySelectorAll(".modal"));
-const modalFormList = Array.from(document.querySelectorAll(".modal__content"));
 const buttonCloseList = Array.from(document.querySelectorAll(".modal__button-close"));
 
 const initialCards = [
@@ -76,17 +78,16 @@ function openEdit() {
   openModal(modalEdit);
   modalName.value = userName.textContent;
   modalActivity.value = userActivity.textContent;
-  toggleButtonState();
+  renderButtonState();
 }
 
 function openAdd() {
   openModal(modalAdd);
-  renderPhotoInput();
+  renderButtonState();
 }
 
 function closeModal(evt) {
   evt.currentTarget.parentNode.parentNode.classList.add("modal_hidden");
-  renderInput();
 }
 
 function addCard(data) {
@@ -112,41 +113,47 @@ function renderCard(card) {
 function saveChanges(evt) {
   evt.preventDefault();
 
-  if(evt.currentTarget.classList.contains("modal__content-edit")) {
-    let newName = document.querySelector(".modal__input_type_name");
-    let newActivity = document.querySelector(".modal__input_type_whois");
-  
-    userName.innerText = newName.value;
-    userActivity.innerText = newActivity.value;
-  }
-
-  if(evt.currentTarget.classList.contains("modal__content-add")) {
-    let url = document.querySelector(".modal__input_type_url").value;
-    let title = document.querySelector(".modal__input_type_title").value;
-    renderCard(addCard({url: url, name: title}));
-  }
+  let newName = document.querySelector(".modal__input_type_name");
+  let newActivity = document.querySelector(".modal__input_type_whois");
+  userName.innerText = newName.value;
+  userActivity.innerText = newActivity.value;
 
   closeModal();
 }
 
-function toggleButtonState() {
-  if (modalName.value === "" || modalActivity.value === "") {
-    buttonSave.disabled = true;
-    buttonSave.classList.add("modal__button-save_disabled");
-  } else {
-    buttonSave.disabled = false;
-    buttonSave.classList.remove("modal__button-save_disabled");
+function saveCard(evt) {
+  evt.preventDefault();
+
+  let url = document.querySelector(".modal__input_type_url").value;
+  let title = document.querySelector(".modal__input_type_title").value;
+  renderCard(addCard({url: url, name: title}));
+
+  closeModal();
+}
+
+function toggleButtonState(button,state) {
+  if(state === "disabled") {
+    button.disabled = true;
+    button.classList.add("modal__button-save_disabled");
+  }
+  else if(state === "enabled") {
+    button.disabled = false;
+    button.classList.remove("modal__button-save_disabled");
   }
 }
 
-function renderPhotoInput() {
-  if (modalAddUrl.value === "" || modalAddTitle.value === "") {
-    buttonSavePhoto.disabled = true;
-    buttonSavePhoto.classList.add("modal__button-save_disabled");
-  } else {
-    buttonSavePhoto.disabled = false;
-    buttonSavePhoto.classList.remove("modal__button-save_disabled");
-  }
+function renderButtonState() {
+    if (modalAddUrl.value === "" || modalAddTitle.value === "") {
+      toggleButtonState(buttonSavePhoto,"disabled");
+    } else {
+      toggleButtonState(buttonSavePhoto,"enabled");
+    }
+
+    if (modalName.value === "" || modalActivity.value === "") {
+      toggleButtonState(buttonSave,"disabled");
+    } else {
+      toggleButtonState(buttonSave,"enabled");
+    }
 }
 
 function saveInput() {
@@ -156,20 +163,19 @@ function saveInput() {
 
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
-modalFormList.forEach(modal => {
-  modal.addEventListener("submit", saveChanges)
-});
+buttonSavePhoto.addEventListener("click", addCard)
 buttonCloseList.forEach(button => {
   button.addEventListener("click", closeModal);
 });
-buttonSavePhoto.addEventListener("click", addCard)
+
+contentEdit.addEventListener("submit",saveChanges);
+contentAdd.addEventListener("submit",saveCard);
 
 images.forEach(img => {
   img.addEventListener("click",openImage)
 })
 
-modalName.addEventListener("input", toggleButtonState);
-modalActivity.addEventListener("input", toggleButtonState);
-
-modalAddTitle.addEventListener("input", renderPhotoInput);
-modalAddUrl.addEventListener("input", renderPhotoInput);
+modalName.addEventListener("input", renderButtonState);
+modalActivity.addEventListener("input", renderButtonState);
+modalAddTitle.addEventListener("input", renderButtonState);
+modalAddUrl.addEventListener("input", renderButtonState);
