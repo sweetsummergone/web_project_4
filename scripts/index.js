@@ -56,13 +56,13 @@ function deleteCard(evt){
 }
 
 function openImage(evt) {
-  // const modalPopup = document.querySelector("#modal__popup").content;
+  // const modalPopup = document.querySelector("#modal_popup").content;
 
-  // const popupElement = modalPopup.querySelector('.modal__popup').cloneNode(true);
+  // const popupElement = modalPopup.querySelector('.modal_popup').cloneNode(true);
 
-  let modalPopup = document.querySelector(".modal__popup");
-  let modalImage = document.querySelector(".modal__popup_image");
-  let modalTitle = document.querySelector(".modal__popup_title");
+  let modalPopup = document.querySelector(".modal_popup");
+  let modalImage = document.querySelector(".popup__image");
+  let modalTitle = document.querySelector(".popup__title");
   modalImage.src = evt.currentTarget.src
   modalTitle.textContent = evt.currentTarget.alt;
   modalPopup.classList.toggle("modal_hidden");

@@ -3,7 +3,6 @@
 
 /* Modal */
 @import url("../blocks/modal/modal.css");
-@import url("../blocks/modal/_hidden/modal_hidden.css");
 @import url("../blocks/modal/__block/modal__block.css");
 @import url("../blocks/modal/__form/modal__form.css");
 @import url("../blocks/modal/__content/modal__content.css");
@@ -12,9 +11,14 @@
 @import url("../blocks/modal/__button-save/modal__button-save.css");
 @import url("../blocks/modal/__button-save/_disabled/modal__button-save_disabled.css");
 @import url("../blocks/modal/__button-close/modal__button-close.css");
-@import url("../blocks/modal/__popup/modal__popup.css");
-@import url("../blocks/modal/__popup/_image/modal__popup_image.css");
-@import url("../blocks/modal/__popup/_title/modal__popup_title.css");
+@import url("../blocks/modal/_hidden/modal_hidden.css");
+@import url("../blocks/modal/_popup/modal_popup.css");
+
+/* Popup */
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/__close/popup__close.css");
+@import url("../blocks/popup/__image/popup__image.css");
+@import url("../blocks/popup/__title/popup__title.css");
 
 /* Page */
 @import url("../blocks/page/page.css");

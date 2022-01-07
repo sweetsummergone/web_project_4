@@ -1,11 +1,11 @@
-.modal__popup_image {  
+.popup__image {  
     max-width: 816px;
     max-height: 540px;
 }
 
 
 @media screen and (max-width: 879px) {
-    .modal__popup_image {
+    .popup__image {
         max-height: 299px;  
     }
   }
