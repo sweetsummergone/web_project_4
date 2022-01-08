@@ -4,7 +4,8 @@ const buttonAdd = document.querySelector(".profile__button-add");
 const buttonSave = document.querySelector(".modal__button-save");
 const buttonSavePhoto = document.querySelector(".modal__button-save-photo");
 // 
-const facebook = document.querySelector(".facebook");
+const cards = document.querySelector(".cards");
+const cardTemplate = document.querySelector("#cards__card").content;
 // 
 const modalEdit = document.querySelector(".modal_edit");
 const modalAdd = document.querySelector(".modal_add");
@@ -51,10 +52,10 @@ const initialCards = [
 
 // add content
 initialCards.forEach(card => {
-  renderCard(addCard({url: card.link, name: card.name}));
+  renderCard(createCard({url: card.link, name: card.name}));
 });
 
-const images = Array.from(document.querySelectorAll(".facebook__image"));
+const images = Array.from(document.querySelectorAll(".cards__image"));
 
 function deleteCard(evt){
   evt.currentTarget.parentNode.remove();
@@ -78,43 +79,42 @@ function openEdit() {
   openModal(modalEdit);
   modalName.value = userName.textContent;
   modalActivity.value = userActivity.textContent;
-  renderButtonState();
+  renderSaveButtonState();
 }
 
 function openAdd() {
   openModal(modalAdd);
-  renderButtonState();
+  renderSavePhotoButtonState();
 }
 
 function closeModal(evt) {
-  evt.currentTarget.parentNode.parentNode.classList.add("modal_hidden");
+  evt.currentTarget.closest('.modal').classList.add("modal_hidden");
 }
 
-function addCard(data) {
-  const cardTemplate = document.querySelector("#facebook__card").content;
-  
+function createCard(data) {
   // clone the content of the template tag 
-  const cardElement = cardTemplate.querySelector('.facebook__card').cloneNode(true);
-  cardElement.querySelector(".facebook__image").src = data.url;
-  cardElement.querySelector(".facebook__image").alt = data.name;
-  cardElement.querySelector(".facebook__name").textContent = data.name;
-  cardElement.querySelector(".facebook__delete").addEventListener("click",deleteCard);
-  cardElement.querySelector(".facebook__like").addEventListener("click", function (evt) {
-    evt.target.classList.toggle("facebook__like_liked");
+  const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
+  const cardsImage = cardElement.querySelector(".cards__image")
+  cardsImage.src = data.url;
+  cardsImage.alt = data.name;
+  cardElement.querySelector(".cards__name").textContent = data.name;
+  cardElement.querySelector(".cards__delete").addEventListener("click", deleteCard);
+  cardElement.querySelector(".cards__like").addEventListener("click", function (evt) {
+    evt.target.classList.toggle("cards__like_liked");
   });
 
   return cardElement;
 }
 
 function renderCard(card) {
-  facebook.prepend(card); 
+  cards.prepend(card); 
 }
 
-function saveChanges(evt) {
+function saveProfile(evt) {
   evt.preventDefault();
 
-  let newName = document.querySelector(".modal__input_type_name");
-  let newActivity = document.querySelector(".modal__input_type_whois");
+  const newName = document.querySelector(".modal__input_type_name");
+  const newActivity = document.querySelector(".modal__input_type_whois");
   userName.innerText = newName.value;
   userActivity.innerText = newActivity.value;
 
@@ -124,35 +124,37 @@ function saveChanges(evt) {
 function saveCard(evt) {
   evt.preventDefault();
 
-  let url = document.querySelector(".modal__input_type_url").value;
-  let title = document.querySelector(".modal__input_type_title").value;
-  renderCard(addCard({url: url, name: title}));
+  const url = document.querySelector(".modal__input_type_url").value;
+  const title = document.querySelector(".modal__input_type_title").value;
+  renderCard(createCard({url: url, name: title}));
 
   closeModal();
 }
 
 function toggleButtonState(button,state) {
-  if(state === "disabled") {
+  if (state === "disabled") {
     button.disabled = true;
     button.classList.add("modal__button-save_disabled");
   }
-  else if(state === "enabled") {
+  else if (state === "enabled") {
     button.disabled = false;
     button.classList.remove("modal__button-save_disabled");
   }
 }
 
-function renderButtonState() {
-    if (modalAddUrl.value === "" || modalAddTitle.value === "") {
-      toggleButtonState(buttonSavePhoto,"disabled");
-    } else {
-      toggleButtonState(buttonSavePhoto,"enabled");
-    }
+function renderSaveButtonState() {
+  if (modalName.value === "" || modalActivity.value === "") {
+    toggleButtonState(buttonSave, "disabled");
+  } else {
+    toggleButtonState(buttonSave, "enabled");
+  }
+}
 
-    if (modalName.value === "" || modalActivity.value === "") {
-      toggleButtonState(buttonSave,"disabled");
+function renderSavePhotoButtonState() {
+    if (modalAddUrl.value === "" || modalAddTitle.value === "") {
+      toggleButtonState(buttonSavePhoto, "disabled");
     } else {
-      toggleButtonState(buttonSave,"enabled");
+      toggleButtonState(buttonSavePhoto, "enabled");
     }
 }
 
@@ -163,19 +165,19 @@ function saveInput() {
 
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
-buttonSavePhoto.addEventListener("click", addCard)
+buttonSavePhoto.addEventListener("click", createCard)
 buttonCloseList.forEach(button => {
   button.addEventListener("click", closeModal);
 });
 
-contentEdit.addEventListener("submit",saveChanges);
+contentEdit.addEventListener("submit",saveProfile);
 contentAdd.addEventListener("submit",saveCard);
 
-images.forEach(img => {
-  img.addEventListener("click",openImage)
+images.forEach(image => {
+  image.addEventListener("click", openImage)
 })
 
-modalName.addEventListener("input", renderButtonState);
-modalActivity.addEventListener("input", renderButtonState);
-modalAddTitle.addEventListener("input", renderButtonState);
-modalAddUrl.addEventListener("input", renderButtonState);
+modalName.addEventListener("input", renderSaveButtonState);
+modalActivity.addEventListener("input", renderSaveButtonState);
+modalAddTitle.addEventListener("input", renderSavePhotoButtonState);
+modalAddUrl.addEventListener("input", renderSavePhotoButtonState);

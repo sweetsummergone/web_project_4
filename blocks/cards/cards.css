@@ -1,4 +1,4 @@
-.facebook {
+.cards {
   list-style: none;
   padding: 0;
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 879px) {
-  .facebook {
+  .cards {
     margin: 0 auto;
     justify-content: center;
   }

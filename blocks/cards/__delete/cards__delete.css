@@ -1,4 +1,4 @@
-.facebook__delete {
+.cards__delete {
     position: absolute;
     top: 18px;
     right: 15px;
@@ -14,6 +14,6 @@
     transition: all 0.5s;
   }
   
-  .facebook__delete:hover {
+  .cards__delete:hover {
     opacity: 0.5;
   }
