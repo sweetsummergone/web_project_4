@@ -87,7 +87,7 @@ function openAdd() {
   renderSavePhotoButtonState();
 }
 
-function closeModal() {
+function closeModal(evt) {
   evt.currentTarget.closest('.modal').classList.add("modal_hidden");
 }
 
