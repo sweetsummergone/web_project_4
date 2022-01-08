@@ -42,15 +42,15 @@
 @import url("../blocks/info/__name/info__name.css");
 @import url("../blocks/info/__whois/info__whois.css");
 
-/* Facebook */
-@import url("../blocks/facebook/facebook.css");
-@import url("../blocks/facebook/__card/facebook__card.css");
-@import url("../blocks/facebook/__image/facebook__image.css");
-@import url("../blocks/facebook/__footer/facebook__footer.css");
-@import url("../blocks/facebook/__name/facebook__name.css");
-@import url("../blocks/facebook/__like/facebook__like.css");
-@import url("../blocks/facebook/__delete/facebook__delete.css");
-@import url("../blocks/facebook/__like/_liked/facebook__like_liked.css");
+/* Cards */
+@import url("../blocks/cards/cards.css");
+@import url("../blocks/cards/__card/cards__card.css");
+@import url("../blocks/cards/__image/cards__image.css");
+@import url("../blocks/cards/__footer/cards__footer.css");
+@import url("../blocks/cards/__name/cards__name.css");
+@import url("../blocks/cards/__like/cards__like.css");
+@import url("../blocks/cards/__delete/cards__delete.css");
+@import url("../blocks/cards/__like/_liked/cards__like_liked.css");
 
 /* Footer */
 @import url("../blocks/footer/footer.css");

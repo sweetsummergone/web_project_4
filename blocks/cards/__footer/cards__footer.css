@@ -1,4 +1,4 @@
-.facebook__footer {
+.cards__footer {
   max-width: 282px;
   padding: 24px 15px 25px 21px;
   color: #000;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .facebook__footer {
+  .cards__footer {
     padding: 24px 15px 31px 21px;
   }
 }
