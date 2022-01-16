@@ -18,20 +18,26 @@
     <div class="modal modal_edit modal_hidden">
       <div class="modal__content modal__content-edit">
         <button type="button" class="modal__button-close"></button>
-        <form class="modal__form" name="Edit">
+        <form class="modal__form" name="Edit" novalidate>
           <h2 class="modal__title">Edit profile</h2>
           <input
             name="name"
             class="modal__input modal__input_type_name"
+            id="name-input"
             type="text"
             placeholder="Name"
+            required minlength="2" maxlength="40"
           />
+          <span class="modal__input-error name-input-error" ></span>
           <input
             name="whois"
             class="modal__input modal__input_type_whois"
+            id="whois-input"
             type="text"
             placeholder="Activity"
+            required minlength="2" maxlength="200"
           />
+          <span class="modal__input-error whois-input-error" ></span>
           <button type="submit" class="modal__button-save">Save</button>
         </form>
       </div>
@@ -44,15 +50,21 @@
           <input
             name="title"
             class="modal__input modal__input_type_title"
+            id="title-input"
             type="text"
             placeholder="Title"
+            required minlength="1" maxlength="30"
           />
+          <span class="modal__input-error title-input-error" ></span>
           <input
             name="url"
             class="modal__input modal__input_type_url"
-            type="text"
+            id="url-input"
+            type="url"
             placeholder="Image URL"
+            required
           />
+          <span class="modal__input-error url-input-error" ></span>
           <button type="submit" class="modal__button-save modal__button-save-photo">Save</button>
         </form>
       </div>
