@@ -13,9 +13,17 @@ const modalName = document.querySelector(".modal__input_type_name");
 const modalActivity = document.querySelector(".modal__input_type_whois");
 const modalAddTitle = document.querySelector(".modal__input_type_title");
 const modalAddUrl = document.querySelector(".modal__input_type_url");
+//
+const modalPopup = document.querySelector(".modal_popup");
+const modalImage = document.querySelector(".popup__image");
+const modalTitle = document.querySelector(".popup__title");
 // 
 const contentEdit = document.querySelector(".modal__content-edit");
 const contentAdd = document.querySelector(".modal__content-add");
+const newName = document.querySelector(".modal__input_type_name");
+const newActivity = document.querySelector(".modal__input_type_whois");
+const url = document.querySelector(".modal__input_type_url");
+const title = document.querySelector(".modal__input_type_title");
 //
 const userName = document.querySelector(".info__name");
 const userActivity = document.querySelector(".info__whois");
@@ -56,25 +64,19 @@ initialCards.forEach(card => {
   renderCard(createCard({url: card.link, name: card.name}));
 });
 
-const images = Array.from(document.querySelectorAll(".cards__image"));
-
 function deleteCard(evt){
-  evt.currentTarget.parentNode.remove();
+  evt.currentTarget.closest('.cards__card').remove();
+}
+
+function openModal(modalWindow) {
+  modalWindow.classList.add("modal_active");
 }
 
 function openImage(evt) {
-  const modalPopup = document.querySelector(".modal_popup");
-  const modalImage = document.querySelector(".popup__image");
-  const modalTitle = document.querySelector(".popup__title");
   modalImage.src = evt.currentTarget.src;
   modalImage.alt = evt.currentTarget.alt;
   modalTitle.textContent = evt.currentTarget.alt;
   openModal(modalPopup);
-}
-
-function openModal(modalWindow) {
-  modalWindow.classList.remove("modal_hidden");
-  modalWindow.classList.add("modal_active");
 }
 
 function openEdit() {
@@ -89,14 +91,14 @@ function openAdd() {
   renderSavePhotoButtonState();
 }
 
+// Idk how I should make this function so pass it throught addEventListener with an argument different
+// off event
 function closeModal(evt) {
-  if(evt.type === "click") {
-    evt.currentTarget.closest('.modal').classList.add("modal_hidden");
+  if(evt.type === "click" || evt.type === "submit") {
     evt.currentTarget.closest('.modal').classList.remove("modal_active");
   } 
   else if(evt.type === "keydown") {
     const modalActive = document.querySelector(".modal_active");
-    modalActive.classList.add("modal_hidden");
     modalActive.classList.remove("modal_active");
   }
 }
@@ -107,7 +109,9 @@ function createCard(data) {
   const cardsImage = cardElement.querySelector(".cards__image")
   cardsImage.src = data.url;
   cardsImage.alt = data.name;
+  
   cardElement.querySelector(".cards__name").textContent = data.name;
+  cardElement.querySelector(".cards__image").addEventListener("click", openImage)
   cardElement.querySelector(".cards__delete").addEventListener("click", deleteCard);
   cardElement.querySelector(".cards__like").addEventListener("click", function (evt) {
     evt.target.classList.toggle("cards__like_liked");
@@ -122,9 +126,6 @@ function renderCard(card) {
 
 function saveProfile(evt) {
   evt.preventDefault();
-
-  const newName = document.querySelector(".modal__input_type_name");
-  const newActivity = document.querySelector(".modal__input_type_whois");
   userName.innerText = newName.value;
   userActivity.innerText = newActivity.value;
 
@@ -133,11 +134,10 @@ function saveProfile(evt) {
 
 function saveCard(evt) {
   evt.preventDefault();
-
-  const url = document.querySelector(".modal__input_type_url").value;
-  const title = document.querySelector(".modal__input_type_title").value;
-  renderCard(createCard({url: url, name: title}));
-
+  renderCard(createCard({url: url.value, name: title.value}));
+  url.value = "";
+  title.value = "";
+  toggleSaveButtonState(buttonSave, "disabled");
   closeModal(evt);
 }
 
@@ -169,13 +169,12 @@ function renderSavePhotoButtonState() {
 }
 
 function saveInput() {
-  modalName.value = document.querySelector(".info__name").innerText;
-  modalActivity.value = document.querySelector(".info__whois").innerText;
+  modalName.value = userName.innerText;
+  modalActivity.value = userActivity.innerText;
 }
 
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
-buttonSavePhoto.addEventListener("click", createCard)
 buttonCloseList.forEach(button => {
   button.addEventListener("click", closeModal);
 });
@@ -183,20 +182,6 @@ buttonCloseList.forEach(button => {
 contentEdit.addEventListener("submit",saveProfile);
 contentAdd.addEventListener("submit",saveCard);
 
-images.forEach(image => {
-  image.addEventListener("click", openImage)
-})
-
-modalName.addEventListener("input", renderSaveButtonState);
-modalActivity.addEventListener("input", renderSaveButtonState);
-modalAddTitle.addEventListener("input", renderSavePhotoButtonState);
-modalAddUrl.addEventListener("input", renderSavePhotoButtonState);
 modalOverlayList.forEach(overlay => {
   overlay.addEventListener("click", closeModal);
-})
-
-document.addEventListener("keydown", function(event) { 
-  if (event.key === "Escape") { 
-    closeModal(event);
-  }
 })

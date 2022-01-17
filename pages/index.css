@@ -13,7 +13,7 @@
 @import url("../blocks/modal/__button-save/modal__button-save.css");
 @import url("../blocks/modal/__button-save/_disabled/modal__button-save_disabled.css");
 @import url("../blocks/modal/__button-close/modal__button-close.css");
-@import url("../blocks/modal/_hidden/modal_hidden.css");
+@import url("../blocks/modal/_active/modal_active.css");
 @import url("../blocks/modal/_popup/modal_popup.css");
 
 /* Popup */
