@@ -21,6 +21,7 @@ const userName = document.querySelector(".info__name");
 const userActivity = document.querySelector(".info__whois");
 // 
 const modalList = Array.from(document.querySelectorAll(".modal"));
+const modalOverlayList = Array.from(document.querySelectorAll(".modal__overlay"));
 const buttonCloseList = Array.from(document.querySelectorAll(".modal__button-close"));
 //
 const initialCards = [
@@ -97,7 +98,6 @@ function closeModal(evt) {
     const modalActive = document.querySelector(".modal_active");
     modalActive.classList.add("modal_hidden");
     modalActive.classList.remove("modal_active");
-    
   }
 }
 
@@ -191,7 +191,9 @@ modalName.addEventListener("input", renderSaveButtonState);
 modalActivity.addEventListener("input", renderSaveButtonState);
 modalAddTitle.addEventListener("input", renderSavePhotoButtonState);
 modalAddUrl.addEventListener("input", renderSavePhotoButtonState);
-
+modalOverlayList.forEach(overlay => {
+  overlay.addEventListener("click", closeModal);
+})
 
 document.addEventListener("keydown", function(event) { 
   if (event.key === "Escape") { 
