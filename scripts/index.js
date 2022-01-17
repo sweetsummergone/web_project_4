@@ -73,6 +73,7 @@ function openImage(evt) {
 
 function openModal(modalWindow) {
   modalWindow.classList.remove("modal_hidden");
+  modalWindow.classList.add("modal_active");
 }
 
 function openEdit() {
@@ -88,7 +89,16 @@ function openAdd() {
 }
 
 function closeModal(evt) {
-  evt.currentTarget.closest('.modal').classList.add("modal_hidden");
+  if(evt.type === "click") {
+    evt.currentTarget.closest('.modal').classList.add("modal_hidden");
+    evt.currentTarget.closest('.modal').classList.remove("modal_active");
+  } 
+  else if(evt.type === "keydown") {
+    const modalActive = document.querySelector(".modal_active");
+    modalActive.classList.add("modal_hidden");
+    modalActive.classList.remove("modal_active");
+    
+  }
 }
 
 function createCard(data) {
@@ -181,3 +191,10 @@ modalName.addEventListener("input", renderSaveButtonState);
 modalActivity.addEventListener("input", renderSaveButtonState);
 modalAddTitle.addEventListener("input", renderSavePhotoButtonState);
 modalAddUrl.addEventListener("input", renderSavePhotoButtonState);
+
+
+document.addEventListener("keydown", function(event) { 
+  if (event.key === "Escape") { 
+    closeModal(event);
+  }
+})
