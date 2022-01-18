@@ -64,12 +64,19 @@ initialCards.forEach(card => {
   renderCard(createCard({url: card.link, name: card.name}));
 });
 
-function deleteCard(evt){
+function closeByEscape(evt) {
+  if(evt.key === "Escape") {
+    document.querySelector('.modal_active').classList.remove("modal_active");
+  }
+}
+
+function deleteCard(evt) {
   evt.currentTarget.closest('.cards__card').remove();
 }
 
 function openModal(modalWindow) {
   modalWindow.classList.add("modal_active");
+  document.addEventListener("keydown", closeByEscape);
 }
 
 function openImage(evt) {
@@ -91,16 +98,9 @@ function openAdd() {
   renderSavePhotoButtonState();
 }
 
-// Idk how I should make this function so pass it throught addEventListener with an argument different
-// off event
-function closeModal(evt) {
-  if(evt.type === "click" || evt.type === "submit") {
-    evt.currentTarget.closest('.modal').classList.remove("modal_active");
-  } 
-  else if(evt.type === "keydown") {
-    const modalActive = document.querySelector(".modal_active");
-    modalActive.classList.remove("modal_active");
-  }
+function closeModal(modalWindow) {
+  modalWindow.classList.remove("modal_active");
+  document.removeEventListener("keydown", closeByEscape)
 }
 
 function createCard(data) {
@@ -109,9 +109,9 @@ function createCard(data) {
   const cardsImage = cardElement.querySelector(".cards__image")
   cardsImage.src = data.url;
   cardsImage.alt = data.name;
-  
+
+  cardsImage.addEventListener("click", openImage);
   cardElement.querySelector(".cards__name").textContent = data.name;
-  cardElement.querySelector(".cards__image").addEventListener("click", openImage)
   cardElement.querySelector(".cards__delete").addEventListener("click", deleteCard);
   cardElement.querySelector(".cards__like").addEventListener("click", function (evt) {
     evt.target.classList.toggle("cards__like_liked");
@@ -129,7 +129,7 @@ function saveProfile(evt) {
   userName.innerText = newName.value;
   userActivity.innerText = newActivity.value;
 
-  closeModal(evt);
+  closeModal(modalEdit);
 }
 
 function saveCard(evt) {
@@ -138,7 +138,7 @@ function saveCard(evt) {
   url.value = "";
   title.value = "";
   toggleSaveButtonState(buttonSave, "disabled");
-  closeModal(evt);
+  closeModal(modalAdd);
 }
 
 function toggleSaveButtonState(button,state) {
@@ -176,12 +176,18 @@ function saveInput() {
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
 buttonCloseList.forEach(button => {
-  button.addEventListener("click", closeModal);
+  button.addEventListener("click", function() {
+    const popup = button.closest('.modal');
+    closeModal(popup);
+  })
 });
 
 contentEdit.addEventListener("submit",saveProfile);
 contentAdd.addEventListener("submit",saveCard);
 
 modalOverlayList.forEach(overlay => {
-  overlay.addEventListener("click", closeModal);
+  overlay.addEventListener("click", function() {
+    const popup = overlay.closest('.modal');
+    closeModal(popup)
+  });
 })

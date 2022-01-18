@@ -53,18 +53,12 @@ const setEventListeners = (data, formElement) => {
 }; 
 
 const enableValidation = (data) => {
-  // Misunderstood here
-  const formList = Array.from(document.querySelectorAll(".modal"));
+   const formList = Array.from(document.querySelectorAll(data.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", function (evt) {
       evt.preventDefault();
     });
-
-    const modalFormList = Array.from(formElement.querySelectorAll(data.formSelector));
-
-    modalFormList.forEach((modalForm) => {
-      setEventListeners(data, modalForm);
-    });
+    setEventListeners(data, formElement);
   });
 };
 
