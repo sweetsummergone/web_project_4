@@ -66,7 +66,7 @@ initialCards.forEach(card => {
 
 function closeByEscape(evt) {
   if(evt.key === "Escape") {
-    document.querySelector('.modal_active').classList.remove("modal_active");
+    closeModal(document.querySelector('.modal_active'));
   }
 }
 
