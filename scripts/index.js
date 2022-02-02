@@ -1,3 +1,4 @@
+import Card from "./Card.js";
 // 
 const buttonEdit = document.querySelector(".info__button-edit");
 const buttonAdd = document.querySelector(".profile__button-add");
@@ -61,7 +62,7 @@ const initialCards = [
 
 // add content
 initialCards.forEach(card => {
-  renderCard(createCard({url: card.link, name: card.name}));
+  renderCard({url: card.link, name: card.name});
 });
 
 function closeByEscape(evt) {
@@ -103,25 +104,11 @@ function closeModal(modalWindow) {
   document.removeEventListener("keydown", closeByEscape)
 }
 
-function createCard(data) {
-  // clone the content of the template tag 
-  const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
-  const cardsImage = cardElement.querySelector(".cards__image")
-  cardsImage.src = data.url;
-  cardsImage.alt = data.name;
-
-  cardsImage.addEventListener("click", openImage);
-  cardElement.querySelector(".cards__name").textContent = data.name;
-  cardElement.querySelector(".cards__delete").addEventListener("click", deleteCard);
-  cardElement.querySelector(".cards__like").addEventListener("click", function (evt) {
-    evt.target.classList.toggle("cards__like_liked");
-  });
-
-  return cardElement;
-}
-
 function renderCard(card) {
-  cards.prepend(card); 
+  const newCard = new Card(card, "#cards__card");
+  const cardElement = newCard.generateCard();
+  
+  cards.prepend(cardElement); 
 }
 
 function saveProfile(evt) {
@@ -134,7 +121,7 @@ function saveProfile(evt) {
 
 function saveCard(evt) {
   evt.preventDefault();
-  renderCard(createCard({url: url.value, name: title.value}));
+  renderCard({url: url.value, name: title.value});
   url.value = "";
   title.value = "";
   toggleSaveButtonState(buttonSave, "disabled");
@@ -191,3 +178,5 @@ modalOverlayList.forEach(overlay => {
     closeModal(popup)
   });
 })
+
+export {openImage, deleteCard}
