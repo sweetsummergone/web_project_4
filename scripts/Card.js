@@ -1,4 +1,4 @@
-import {openImage, deleteCard} from "./index.js";
+import {openImage, deleteCard} from "./utils.js";
 
 export default class Card {
     constructor(data, cardSelector) {
