@@ -1,4 +1,5 @@
-import {openImage, deleteCard} from "./utils.js";
+import { modalImage, modalTitle, modalPopup } from "./index.js";
+import { openModal } from "./utils.js";
 
 export default class Card {
     constructor(data, cardSelector) {
@@ -15,13 +16,28 @@ export default class Card {
   
         return cardElement;
     }
-  
+    
+    _likeCard() {
+        this.classList.toggle("cards__like_liked");
+    }
+
+    _openCardImage() {
+        modalImage.src = this._link;
+        modalImage.alt = this._title;
+        modalTitle.textContent = this._title;
+        openModal(modalPopup);
+    }
+
+    _deleteCard() {
+        this.closest(".cards__card").remove();
+    }
+
     _setEventListeners() {
-        this._element.querySelector(".cards__image").addEventListener("click", openImage);
-        this._element.querySelector(".cards__delete").addEventListener("click", deleteCard);
-        this._element.querySelector(".cards__like").addEventListener("click", function (evt) {
-            evt.target.classList.toggle("cards__like_liked");
+        this._element.querySelector(".cards__image").addEventListener("click", () => {
+            this._openCardImage();
         });
+        this._element.querySelector(".cards__delete").addEventListener("click", this._deleteCard);
+        this._element.querySelector(".cards__like").addEventListener("click", this._likeCard);
     }
 
     generateCard() {
