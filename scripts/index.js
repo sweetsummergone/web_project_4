@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 // 
 const buttonEdit = document.querySelector(".info__button-edit");
 const buttonAdd = document.querySelector(".profile__button-add");
@@ -10,12 +11,13 @@ const cardTemplate = document.querySelector("#cards__card").content;
 // 
 const modalEdit = document.querySelector(".modal_edit");
 const modalAdd = document.querySelector(".modal_add");
+const modalPopup = document.querySelector(".modal_popup");
+//
 const modalName = document.querySelector(".modal__input_type_name");
 const modalActivity = document.querySelector(".modal__input_type_whois");
 const modalAddTitle = document.querySelector(".modal__input_type_title");
 const modalAddUrl = document.querySelector(".modal__input_type_url");
 //
-const modalPopup = document.querySelector(".modal_popup");
 const modalImage = document.querySelector(".popup__image");
 const modalTitle = document.querySelector(".popup__title");
 // 
@@ -28,10 +30,21 @@ const title = document.querySelector(".modal__input_type_title");
 //
 const userName = document.querySelector(".info__name");
 const userActivity = document.querySelector(".info__whois");
-// 
-const modalList = Array.from(document.querySelectorAll(".modal"));
+//
 const modalOverlayList = Array.from(document.querySelectorAll(".modal__overlay"));
 const buttonCloseList = Array.from(document.querySelectorAll(".modal__button-close"));
+//
+const validationSettings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button-save",
+  inactiveButtonClass: "modal__button-save_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active"
+}
+const modalEditValidation = new FormValidator(validationSettings, modalEdit); 
+const modalAddValidation = new FormValidator(validationSettings, modalAdd);
+const modalPopupValidation = new FormValidator(validationSettings, modalPopup);
 //
 const initialCards = [
   {
@@ -85,6 +98,7 @@ function openImage(evt) {
   modalImage.alt = evt.currentTarget.alt;
   modalTitle.textContent = evt.currentTarget.alt;
   openModal(modalPopup);
+  modalPopupValidation.enableValidation();
 }
 
 function openEdit() {
@@ -92,11 +106,13 @@ function openEdit() {
   modalName.value = userName.textContent;
   modalActivity.value = userActivity.textContent;
   renderSaveButtonState();
+  modalEditValidation.enableValidation();
 }
 
 function openAdd() {
   openModal(modalAdd);
   renderSavePhotoButtonState();
+  modalAddValidation.enableValidation();
 }
 
 function closeModal(modalWindow) {
@@ -153,11 +169,6 @@ function renderSavePhotoButtonState() {
   } else {
     toggleSaveButtonState(buttonSavePhoto, "enabled");
   }
-}
-
-function saveInput() {
-  modalName.value = userName.innerText;
-  modalActivity.value = userActivity.innerText;
 }
 
 buttonEdit.addEventListener("click", openEdit);
