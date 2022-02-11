@@ -17,10 +17,6 @@ export default class Card {
         return cardElement;
     }
     
-    _likeCard() {
-        this.classList.toggle("cards__like_liked");
-    }
-
     _openCardImage() {
         modalImage.src = this._link;
         modalImage.alt = this._title;
@@ -28,16 +24,20 @@ export default class Card {
         openModal(modalPopup);
     }
 
+    _likeCard() {
+        this._element.querySelector(".cards__like").classList.toggle("cards__like_liked");
+    }
+
     _deleteCard() {
-        this.closest(".cards__card").remove();
+        this._element.closest(".cards__card").remove();
     }
 
     _setEventListeners() {
         this._element.querySelector(".cards__image").addEventListener("click", () => {
             this._openCardImage();
         });
-        this._element.querySelector(".cards__delete").addEventListener("click", this._deleteCard);
-        this._element.querySelector(".cards__like").addEventListener("click", this._likeCard);
+        this._element.querySelector(".cards__delete").addEventListener("click", this._deleteCard.bind(this));
+        this._element.querySelector(".cards__like").addEventListener("click", this._likeCard.bind(this));
     }
 
     generateCard() {

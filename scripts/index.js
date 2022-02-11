@@ -32,9 +32,7 @@ const title = document.querySelector(".modal__input_type_title");
 const userName = document.querySelector(".info__name");
 const userActivity = document.querySelector(".info__whois");
 //
-const modalOverlayList = Array.from(
-  document.querySelectorAll(".modal__overlay")
-);
+const modalOverlayList = document.querySelectorAll(".modal__overlay");
 const buttonCloseList = Array.from(
   document.querySelectorAll(".modal__button-close")
 );
