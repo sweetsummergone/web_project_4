@@ -1,5 +1,5 @@
-import { modalImage, modalTitle, modalPopup } from "./index.js";
-import { openModal } from "./utils.js";
+import { modalImage, modalTitle, modalPopup } from "../pages/index.js";
+import { openModal } from "../utils/utils.js";
 
 export default class Card {
     constructor(data, cardSelector) {

@@ -1,8 +1,15 @@
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
-import { validationSettings, openModal, closeModal, toggleSaveButtonState } from "./utils.js";
-import { initialCards } from "./cards.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import { validationSettings, openModal, closeModal, toggleSaveButtonState } from "../utils/utils.js";
+import { initialCards } from "../utils/cards.js";
 //
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+
+
+
 const cards = document.querySelector(".cards");
 //
 const modalEdit = document.querySelector(".modal_edit");
@@ -41,6 +48,22 @@ const modalEditValidation = new FormValidator(validationSettings, modalEdit);
 const modalAddValidation = new FormValidator(validationSettings, modalAdd);
 const modalPopupValidation = new FormValidator(validationSettings, modalPopup);
 //
+
+const cardsListSection = new Section ({
+  items: initialCards, 
+  renderer: renderCard,
+}, '.cards-list');
+
+const userInfo = new UserInfo ({ 
+  userName: '.info__name', 
+  userJob: '.info__whois' 
+});
+
+const previewPopup = new PopupWithImage({
+  popupSelector: '.modal_popup',
+  url: '.popup__image',
+  title: '.popup__title',
+});
 
 function openEdit() {
   openModal(modalEdit);
