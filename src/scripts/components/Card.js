@@ -1,11 +1,12 @@
-import { modalImage, modalTitle, modalPopup } from "../utils/constants.js";
-import { openModal } from "../utils/utils.js";
-
 export default class Card {
-    constructor(data, cardSelector) {
+    constructor({name, link, modalImage, modalTitle, modalPopup}, cardSelector, renderer) {
         this._cardSelector = cardSelector;
-        this._title = data.name;
-        this._link = data.link;
+        this._title = name;
+        this._link = link;
+        this._modalImage = modalImage;
+        this._modalTitle = modalTitle;
+        this._modalPopup = modalPopup;
+        this._renderer = renderer;
     }
   
     _getTemplate() {
@@ -20,7 +21,7 @@ export default class Card {
         modalImage.src = this._link;
         modalImage.alt = this._title;
         modalTitle.textContent = this._title;
-        openModal(modalPopup);
+        renderer(modalPopup);
     }
 
     _likeCard() {
