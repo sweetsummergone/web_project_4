@@ -1,16 +1,15 @@
-import { modalImage, modalTitle, modalPopup } from "../pages/index.js";
+import { modalImage, modalTitle, modalPopup } from "../utils/constants.js";
 import { openModal } from "../utils/utils.js";
 
 export default class Card {
     constructor(data, cardSelector) {
         this._cardSelector = cardSelector;
         this._title = data.name;
-        this._link = data.url;
+        this._link = data.link;
     }
   
     _getTemplate() {
-        const cardElement = document
-        .querySelector(this._cardSelector).content
+        const cardElement = this._cardSelector.content
         .querySelector(".cards__card")
         .cloneNode(true);
   

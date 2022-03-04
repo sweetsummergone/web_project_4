@@ -1,6 +1,14 @@
+// This is the worst theme ever I did on this project. I did not understand anything of it. 
+// I've just lost any motivation to continue studying here.
+// So please, if you can, help me with it (Interfaces in OOP)
+// I'll add webpack after correcting my classes.
+// Thank you.
+
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import { validationSettings, openModal, closeModal, toggleSaveButtonState } from "../utils/utils.js";
+import { cards, userName, userActivity, modalEdit, modalAdd, modalPopup } from "../utils/constants.js";
+import { cardTemplate } from "../utils/templates.js";
 import { initialCards } from "../utils/cards.js";
 //
 import Section from "../components/Section.js";
@@ -8,55 +16,17 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 
-
-
-const cards = document.querySelector(".cards");
-//
-const modalEdit = document.querySelector(".modal_edit");
-const modalAdd = document.querySelector(".modal_add");
-//
-const buttonEdit = document.querySelector(".info__button-edit");
-const buttonAdd = document.querySelector(".profile__button-add");
-const buttonSave = document.querySelector(".modal__button-save");
-const buttonSavePhoto = document.querySelector(".modal__button-save-photo");
-//
-const modalName = document.querySelector(".modal__input_type_name");
-const modalActivity = document.querySelector(".modal__input_type_whois");
-const modalAddTitle = document.querySelector(".modal__input_type_title");
-const modalAddUrl = document.querySelector(".modal__input_type_url");
-//
-export const modalPopup = document.querySelector(".modal_popup");
-export const modalImage = document.querySelector(".popup__image");
-export const modalTitle = document.querySelector(".popup__title");
-//
-const contentEdit = document.querySelector(".modal__content-edit");
-const contentAdd = document.querySelector(".modal__content-add");
-const newName = document.querySelector(".modal__input_type_name");
-const newActivity = document.querySelector(".modal__input_type_whois");
-const url = document.querySelector(".modal__input_type_url");
-const title = document.querySelector(".modal__input_type_title");
-//
-const userName = document.querySelector(".info__name");
-const userActivity = document.querySelector(".info__whois");
-//
-const modalOverlayList = document.querySelectorAll(".modal__overlay");
-const buttonCloseList = Array.from(
-  document.querySelectorAll(".modal__button-close")
-);
-//
-const modalEditValidation = new FormValidator(validationSettings, modalEdit);
-const modalAddValidation = new FormValidator(validationSettings, modalAdd);
-const modalPopupValidation = new FormValidator(validationSettings, modalPopup);
-//
-
 const cardsListSection = new Section ({
   items: initialCards, 
   renderer: renderCard,
-}, '.cards-list');
+}, cards);
+
+cardsListSection.renderItems();
 
 const userInfo = new UserInfo ({ 
-  userName: '.info__name', 
-  userJob: '.info__whois' 
+  userName: userName, 
+  userJob: userActivity,
+  renderer: renderInfo
 });
 
 const previewPopup = new PopupWithImage({
@@ -64,6 +34,12 @@ const previewPopup = new PopupWithImage({
   url: '.popup__image',
   title: '.popup__title',
 });
+
+//
+const modalEditValidation = new FormValidator(validationSettings, modalEdit);
+const modalAddValidation = new FormValidator(validationSettings, modalAdd);
+const modalPopupValidation = new FormValidator(validationSettings, modalPopup);
+//
 
 function openEdit() {
   openModal(modalEdit);
@@ -95,7 +71,7 @@ function saveCard(evt) {
 }
 
 function renderCard(card) {
-  const newCard = new Card(card, "#cards__card");
+  const newCard = new Card(card, cardTemplate);
   const cardElement = newCard.generateCard();
 
   cards.prepend(cardElement);
