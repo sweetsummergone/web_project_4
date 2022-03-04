@@ -4,6 +4,8 @@
 // I'll add webpack after correcting my classes.
 // Thank you.
 
+import "../../pages/index.css";
+
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import { validationSettings, openModal, closeModal, toggleSaveButtonState } from "../utils/utils.js";
