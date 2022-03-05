@@ -1,12 +1,11 @@
 export default class Card {
-    constructor({name, link, modalImage, modalTitle, modalPopup}, cardSelector, renderer) {
-        this._cardSelector = cardSelector;
+    constructor({name, link}, modalPopup, cardSelector) {
+        // Object
         this._title = name;
         this._link = link;
-        this._modalImage = modalImage;
-        this._modalTitle = modalTitle;
+        // Separate params
+        this._cardSelector = cardSelector;
         this._modalPopup = modalPopup;
-        this._renderer = renderer;
     }
   
     _getTemplate() {
@@ -16,36 +15,40 @@ export default class Card {
   
         return cardElement;
     }
-    
-    _openCardImage() {
-        modalImage.src = this._link;
-        modalImage.alt = this._title;
-        modalTitle.textContent = this._title;
-        renderer(modalPopup);
-    }
 
     _likeCard() {
-        this._element.querySelector(".cards__like").classList.toggle("cards__like_liked");
+        this._like.classList.toggle("cards__like_liked");
     }
 
     _deleteCard() {
-        this._element.closest(".cards__card").remove();
+        this._closest.remove();
     }
 
     _setEventListeners() {
-        this._element.querySelector(".cards__image").addEventListener("click", () => {
-            this._openCardImage();
+        this._image.addEventListener("click", () => {
+            this.handleCardClick();
         });
-        this._element.querySelector(".cards__delete").addEventListener("click", this._deleteCard.bind(this));
-        this._element.querySelector(".cards__like").addEventListener("click", this._likeCard.bind(this));
+        this._delete.addEventListener("click", this._deleteCard.bind(this));
+        this._like.addEventListener("click", this._likeCard.bind(this));
+    }
+    
+    handleCardClick() {
+        this._modalPopup.open(this._link, this._title);
+        this._modalPopup.setEventListeners();
     }
 
     generateCard() {
         this._element = this._getTemplate();
+        //
+        this._like = this._element.querySelector(".cards__like");
+        this._closest = this._element.closest(".cards__card");
+        this._image = this._element.querySelector(".cards__image");
+        this._delete = this._element.querySelector(".cards__delete")
+
         this._setEventListeners();
     
-        this._element.querySelector(".cards__image").src = this._link;
-        this._element.querySelector(".cards__image").alt = this._title;
+        this._image.src = this._link;
+        this._image.alt = this._title;
         this._element.querySelector(".cards__name").textContent = this._title;
     
         return this._element;

@@ -7,15 +7,16 @@ export default class PopupWithForm extends Popup {
     }
     
     _getInputValues() {
-      let obj = {};
-      super._popupSelector.querySelectorAll(".modal__input").forEach(input => {
+      const obj = {};
+      super._popup.querySelectorAll(".modal__input").forEach(input => {
           obj[input] = input.value;
       });
       return obj;
     }
 
     setEventListeners() {
-      super._popupSelector.addEventListener("submit", this._submitFunc);
+      super.setEventListeners();
+      this._popup.addEventListener("submit", this._submitFunc);
     }
 
     open() {
@@ -24,8 +25,7 @@ export default class PopupWithForm extends Popup {
   
     close() {
       super.close();
-      super._popupSelector.querySelectorAll(".modal__input").forEach(input => {
-        input.value = "";
-      });
+      // Next function reset all fields in every close action (even if it not submit)
+      // this._popup.querySelector(".modal__form").reset();
     }
 }
