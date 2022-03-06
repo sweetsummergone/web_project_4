@@ -12,25 +12,10 @@ import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import { _ } from "core-js";
 
 const modalEditValidation = new FormValidator(validationSettings, modalEdit);
 const modalAddValidation = new FormValidator(validationSettings, modalAdd);
-const modalPopupValidation = new FormValidator(validationSettings, modalPopup);
-
-const formValidators = {};
-// enable validation
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    // here you get the name of the form
-    const formName = formElement.getAttribute('name');
-
-   // here you store a validator by the `name` of the form
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
 
 const cardsListSection = new Section ({
   items: initialCards, 
@@ -40,11 +25,8 @@ const cardsListSection = new Section ({
 const previewPopup = new PopupWithImage(modalPopup);
 
 function renderCard(card) {
-  const newCard = new Card({name: card.name, link: card.link}, cardTemplate);
+  const newCard = new Card({name: card.name, link: card.link}, cardTemplate, handleCardClick);
   const cardElement = newCard.generateCard();
-  cardElement.querySelector(".cards__image").addEventListener("click", () => {
-    handleCardClick(card.link, card.name);
-  });
 
   return cardElement;
 }
@@ -93,5 +75,6 @@ function saveCard(data) {
 
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
-//
-enableValidation(validationSettings);
+
+modalEditValidation.enableValidation();
+modalAddValidation.enableValidation();

@@ -1,8 +1,9 @@
 export default class Card {
-    constructor({name, link}, cardSelector) {
+    constructor({name, link}, cardSelector, cardClickHandler) {
         this._title = name;
         this._link = link;
         this._cardSelector = cardSelector;
+        this._cardClickHandler = cardClickHandler;
     }
   
     _getTemplate() {
@@ -24,6 +25,9 @@ export default class Card {
     _setEventListeners() {
         this._delete.addEventListener("click", this._deleteCard.bind(this));
         this._like.addEventListener("click", this._likeCard.bind(this));
+        this._image.addEventListener("click", () => {
+            this._cardClickHandler(this._link, this._title);
+        });
     }
 
     generateCard() {
