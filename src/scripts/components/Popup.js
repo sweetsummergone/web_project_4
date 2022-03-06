@@ -1,10 +1,9 @@
 export default class Popup {
-    constructor(popupSelector) {
-        this._popup = popupSelector;
-        this._isOpen = false;
+    constructor(popup) {
+        this._popup = popup;
     }
 
-    _handleEscClose(evt) {
+    _handleEscClose = (evt) => {
         if (evt.key === "Escape") {
             this.close();
         }
@@ -16,17 +15,15 @@ export default class Popup {
         });
         this._popup.querySelector(".modal__overlay").addEventListener("click", () => {
             this.close();
-        })
+        });
     }
 
-    open() {
-        this._isOpen = true;        
+    open() { 
         this._popup.classList.add("modal_active");
         document.addEventListener('keydown', this._handleEscClose); 
     }
 
     close() {
-        this._isOpen = false;
         this._popup.classList.remove("modal_active");
         document.removeEventListener('keydown', this._handleEscClose); 
     } 

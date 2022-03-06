@@ -1,11 +1,8 @@
 export default class Card {
-    constructor({name, link}, modalPopup, cardSelector) {
-        // Object
+    constructor({name, link}, cardSelector) {
         this._title = name;
         this._link = link;
-        // Separate params
         this._cardSelector = cardSelector;
-        this._modalPopup = modalPopup;
     }
   
     _getTemplate() {
@@ -25,16 +22,8 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._image.addEventListener("click", () => {
-            this.handleCardClick();
-        });
         this._delete.addEventListener("click", this._deleteCard.bind(this));
         this._like.addEventListener("click", this._likeCard.bind(this));
-    }
-    
-    handleCardClick() {
-        this._modalPopup.open(this._link, this._title);
-        this._modalPopup.setEventListeners();
     }
 
     generateCard() {
