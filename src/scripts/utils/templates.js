@@ -1,0 +1,1 @@
+export const cardTemplate = document.getElementById("cards__card");
