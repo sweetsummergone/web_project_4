@@ -50,9 +50,12 @@
 @import url("../blocks/cards/__image/cards__image.css");
 @import url("../blocks/cards/__footer/cards__footer.css");
 @import url("../blocks/cards/__name/cards__name.css");
-@import url("../blocks/cards/__like/cards__like.css");
 @import url("../blocks/cards/__delete/cards__delete.css");
-@import url("../blocks/cards/__like/_liked/cards__like_liked.css");
+
+/* Likes */
+@import url("../blocks/likes/__like/likes__like.css");
+@import url("../blocks/likes/__like/_liked/likes__like_liked.css");
+@import url("../blocks/likes/__count/likes__count.css");
 
 /* Footer */
 @import url("../blocks/footer/footer.css");

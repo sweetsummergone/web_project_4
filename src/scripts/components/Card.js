@@ -1,7 +1,8 @@
 export default class Card {
-    constructor({name, link}, cardSelector, cardClickHandler) {
+    constructor({name, link, likes}, cardSelector, cardClickHandler) {
         this._title = name;
         this._link = link;
+        this._likes = likes;
         this._cardSelector = cardSelector;
         this._cardClickHandler = cardClickHandler;
     }
@@ -33,7 +34,7 @@ export default class Card {
     generateCard() {
         this._element = this._getTemplate();
         //
-        this._like = this._element.querySelector(".cards__like");
+        this._like = this._element.querySelector(".likes__like");
         this._closest = this._element.closest(".cards__card");
         this._image = this._element.querySelector(".cards__image");
         this._delete = this._element.querySelector(".cards__delete")
@@ -43,6 +44,7 @@ export default class Card {
         this._image.src = this._link;
         this._image.alt = this._title;
         this._element.querySelector(".cards__name").textContent = this._title;
+        this._element.querySelector(".likes__count").textContent = this._likes;
     
         return this._element;
     }
