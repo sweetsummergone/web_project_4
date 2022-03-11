@@ -1,10 +1,12 @@
 export default class Card {
-    constructor({name, link, likes}, cardSelector, cardClickHandler) {
+    constructor({_id, name, link, likes}, cardSelector, cardClickHandler, cardDeleteHandler) {
+        this._id = _id;
         this._title = name;
         this._link = link;
         this._likes = likes;
         this._cardSelector = cardSelector;
         this._cardClickHandler = cardClickHandler;
+        this._cardDeleteHandler = cardDeleteHandler;
     }
   
     _getTemplate() {
@@ -16,11 +18,13 @@ export default class Card {
     }
 
     _likeCard() {
-        this._like.classList.toggle("cards__like_liked");
+        this._like.classList.contains("likes__like_liked") ? this._likes -= 1 : this._likes += 1;
+        this._element.querySelector(".likes__count").textContent = this._likes;
+        this._like.classList.toggle("likes__like_liked");
     }
 
     _deleteCard() {
-        this._closest.remove();
+        this._cardDeleteHandler(this._id);
     }
 
     _setEventListeners() {

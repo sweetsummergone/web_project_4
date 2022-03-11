@@ -7,7 +7,7 @@ export default class Section {
   
     addItem(item) {
       const card = this._renderer(item);
-      this._container.prepend(card);
+      this._container.append(card);
     }
   
     clear() {
