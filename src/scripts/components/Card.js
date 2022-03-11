@@ -1,9 +1,10 @@
 export default class Card {
-    constructor({_id, name, link, likes}, cardSelector, cardClickHandler, cardDeleteHandler) {
+    constructor({_id, name, link, likes}, isOwner, cardSelector, cardClickHandler, cardDeleteHandler) {
         this._id = _id;
         this._title = name;
         this._link = link;
         this._likes = likes;
+        this._isOwner = isOwner;
         this._cardSelector = cardSelector;
         this._cardClickHandler = cardClickHandler;
         this._cardDeleteHandler = cardDeleteHandler;
@@ -41,7 +42,11 @@ export default class Card {
         this._like = this._element.querySelector(".likes__like");
         this._closest = this._element.closest(".cards__card");
         this._image = this._element.querySelector(".cards__image");
-        this._delete = this._element.querySelector(".cards__delete")
+        this._delete = this._element.querySelector(".cards__delete");
+
+        if (!this._isOwner) {
+            this._delete.remove();
+        }
 
         this._setEventListeners();
     

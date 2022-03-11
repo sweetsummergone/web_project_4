@@ -39,10 +39,12 @@ const userInfo = new UserInfo ({
 // Execution block
 
 let cardsListSection;
+let userId;
 
 api.getUser()
 .then(res => res.json())
 .then((result) => {
+    userId = result._id;
     userInfo.setUserInfo({name: result.name, whois: result.about});
 });
 
@@ -51,7 +53,8 @@ renderSection();
 // Functions block
 
 function renderCard(card) {
-  const newCard = new Card({_id: card._id, name: card.name, link: card.link, likes: card.likes.length}, cardTemplate, handleCardClick, handleCardDelete);
+  const isOwner = card.owner._id === userId;
+  const newCard = new Card({_id: card._id, name: card.name, link: card.link, likes: card.likes.length}, isOwner, cardTemplate, handleCardClick, handleCardDelete);
   const cardElement = newCard.generateCard();
 
   return cardElement;
