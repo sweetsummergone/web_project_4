@@ -6,7 +6,6 @@ import {  cards, userName, userActivity, userPhoto, buttonEdit, buttonAdd, avata
           modalEdit, modalAdd, modalPopup, modalConfirm,
           modalName, modalActivity, modalAvatar, loading } from "../scripts/utils/constants.js";
 import { cardTemplate } from "../scripts/utils/templates.js";
-import { data as auth } from "../auth.js";
 // import { initialCards } from "../scripts/utils/cards.js"; // Uncomment if it's necessary to work without fetching data.
 
 // Classes
@@ -21,7 +20,13 @@ import Card from "../scripts/components/Card.js";
 // Undiscovered thing (seems like lodash)
 import { _ } from "core-js";
 // Constants block
-const api = new Api(auth);
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12", 
+  headers: {
+      authorization: "613c39f3-4617-46e7-86c0-dd1b793af23e", // Now it's public
+      "Content-Type": "application/json"
+  }
+});
 
 const modalEditValidation = new FormValidator(validationSettings, modalEdit);
 const modalAddValidation = new FormValidator(validationSettings, modalAdd);
@@ -82,7 +87,10 @@ modalAvatarValidation.enableValidation();
 // Functions block
 
 function renderCard(card) {
-  const isOwner = card.owner._id === userId;
+  let isOwner = true;
+  if ('owner' in card) {
+    isOwner = card.owner._id === userId;
+  }
   let liked = false;
   card.likes.forEach(liker => {
     liked = liker._id === userId;
@@ -161,9 +169,7 @@ function saveCard(data) {
   return new Promise((resolve, reject) => {
     api.saveCard(data)
     .then(item => {
-      // I don't understand why here is an error
-      // console.log(item) // OK
-      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes}); // Not OK
+      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes}); 
       renderSection();
       resolve("ok");
     })

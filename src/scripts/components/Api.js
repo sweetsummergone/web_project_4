@@ -1,14 +1,12 @@
 export default class Api {
-    constructor({token, group}) {
-        this._token = token;
-        this._group = group;
+    constructor({baseUrl, headers}) {
+        this._baseUrl = baseUrl;
+        this._headers = headers;
     }
     
     getUser() {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/users/me`, {
-            headers: {
-                authorization: this._token 
-            }
+        return fetch(`${this._baseUrl}/users/me`, {
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
@@ -20,12 +18,9 @@ export default class Api {
     }
 
     updateUser(data) {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
-            headers: {
-                authorization: this._token,
-                "Content-Type": "application/json"
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
                 about: data.whois
@@ -41,10 +36,8 @@ export default class Api {
     }
 
     getCards() {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards`, {
-            headers: {
-                authorization: this._token 
-            }
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
@@ -56,12 +49,9 @@ export default class Api {
     }
 
     saveCard({title, url}) {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
           method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: this._token 
-          },
+          headers: this._headers,
           body: JSON.stringify({
             name: title,
             link: url
@@ -77,12 +67,9 @@ export default class Api {
       }
       
     deleteCard = (id) => {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}`, {
             method: "DELETE",
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: this._token 
-            }
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
@@ -94,12 +81,9 @@ export default class Api {
     }
 
     addLike = (cardId) => {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
             method: "PUT",
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: this._token 
-            }
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
@@ -111,12 +95,9 @@ export default class Api {
     }
 
     removeLike = (cardId) => {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
             method: "DELETE",
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: this._token 
-            }
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
@@ -128,12 +109,9 @@ export default class Api {
     }
 
     updateAvatar = (url) => {
-        return fetch(`https://around.nomoreparties.co/v1/${this._group}/users/me/avatar`, {
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: this._token 
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 avatar: url
             })
