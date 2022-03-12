@@ -87,7 +87,7 @@ modalAvatarValidation.enableValidation();
 // Functions block
 
 function renderCard(card) {
-  const isOwner = ('owner' in card) ? isOwner = card.owner._id === userId : true;
+  const isOwner = ('owner' in card) ? card.owner._id === userId : true;
   let liked = false;
   card.likes.forEach(liker => {
     liked = liker._id === userId;
