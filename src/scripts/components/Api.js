@@ -43,4 +43,24 @@ export default class Api {
             }
         });
     }
+
+    addLike = (cardId) => {
+        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+            method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: this._token 
+            }
+        });
+    }
+
+    removeLike = (cardId) => {
+        return fetch(`https://around.nomoreparties.co/v1/${this._group}/cards/likes/${cardId}`, {
+            method: "DELETE",
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: this._token 
+            }
+        });
+    }
 }

@@ -6,8 +6,7 @@ import {  cards, userName, userActivity, modalEdit, modalAdd, modalPopup, modalC
           modalName, modalActivity, buttonEdit, buttonAdd } from "../scripts/utils/constants.js";
 import { cardTemplate } from "../scripts/utils/templates.js";
 import { data as auth } from "../auth.js";
-// Uncomment if it's necessary to work without fetching data.
-// import { initialCards } from "../scripts/utils/cards.js";
+// import { initialCards } from "../scripts/utils/cards.js"; // Uncomment if it's necessary to work without fetching data.
 
 // Classes
 import Api from "../scripts/components/Api.js";
@@ -50,11 +49,26 @@ api.getUser()
 
 renderSection();
 
+previewPopup.setEventListeners();
+editPopup.setEventListeners();
+addPopup.setEventListeners();
+confirmPopup.setEventListeners();
+
+buttonEdit.addEventListener("click", openEdit);
+buttonAdd.addEventListener("click", openAdd);
+
+modalEditValidation.enableValidation();
+modalAddValidation.enableValidation();
+
 // Functions block
 
 function renderCard(card) {
   const isOwner = card.owner._id === userId;
-  const newCard = new Card({_id: card._id, name: card.name, link: card.link, likes: card.likes.length}, isOwner, cardTemplate, handleCardClick, handleCardDelete);
+  let liked = false;
+  card.likes.forEach(liker => {
+    liked = liker._id === userId;
+  });
+  const newCard = new Card({_id: card._id, name: card.name, link: card.link, likes: card.likes.length}, isOwner, liked, cardTemplate, handleCardClick, handleCardDelete, handleCardLike);
   const cardElement = newCard.generateCard();
 
   return cardElement;
@@ -82,6 +96,22 @@ function handleCardDelete(id) {
   confirmPopup.open(id, index);
 }
 
+function handleCardLike(cardId, isLiked) {
+  return new Promise((resolve, reject) => {
+    if (isLiked) {
+      api.removeLike(cardId)
+      .then(res => res.json())
+      .then(data => resolve(data.likes.length))
+      .catch(err => reject(`Error: ${err}`));
+    } else {
+      api.addLike(cardId)
+      .then(res => res.json())
+      .then(data => resolve(data.likes.length))
+      .catch(err => reject(`Error: ${err}`));;
+    }
+  }) 
+}
+
 function openEdit() {
   const userData = userInfo.getUserInfo();
   modalName.value = userData.userName;
@@ -107,14 +137,3 @@ function saveCard(data) {
     renderSection();
   });
 }
-
-previewPopup.setEventListeners();
-editPopup.setEventListeners();
-addPopup.setEventListeners();
-confirmPopup.setEventListeners();
-
-buttonEdit.addEventListener("click", openEdit);
-buttonAdd.addEventListener("click", openAdd);
-
-modalEditValidation.enableValidation();
-modalAddValidation.enableValidation();
