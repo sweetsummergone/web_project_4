@@ -1,6 +1,9 @@
 @import url("../vendor/normalize.css");
 @import url("../vendor/fonts/fonts.css");
 
+/* Hidden */
+@import url("../blocks/hidden/hidden.css");
+
 /* Modal */
 @import url("../blocks/modal/modal.css");
 @import url("../blocks/modal/__overlay/modal__overlay.css");
@@ -34,8 +37,13 @@
 
 /* Profile */
 @import url("../blocks/profile/profile.css");
-@import url("../blocks/profile/__photo/profile__photo.css");
 @import url("../blocks/profile/__button-add/profile__button-add.css");
+
+/* Photo */
+@import url("../blocks/photo/photo.css");
+@import url("../blocks/photo/__overlay/photo__overlay.css");
+@import url("../blocks/photo/__image/photo__image.css");
+@import url("../blocks/photo/__edit/photo__edit.css");
 
 /* Info */
 @import url("../blocks/info/info.css");

@@ -90,11 +90,15 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
-          src="<%=require('./images/avatar.png')%>"
-          alt="Your beautiful photo"
-          class="profile__photo"
-        />
+        <div class="photo">
+          <div class="photo__overlay hidden"></div>
+          <img
+            src="<%=require('./images/avatar.png')%>"
+            alt="Your beautiful photo"
+            class="photo__image"
+          />
+          <img src="<%=require('./images/editavatar.svg')%>" alt="Photo edit icon" class="photo__edit hidden">
+        </div>
         <div class="info">
           <div class="info__container">
             <h1 class="info__name">Jacques Cousteau</h1>

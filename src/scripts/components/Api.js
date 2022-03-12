@@ -63,4 +63,17 @@ export default class Api {
             }
         });
     }
+
+    updateAvatar = (url) => {
+        return fetch(`https://around.nomoreparties.co/v1/${this._group}/users/me/avatar`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: this._token 
+            },
+            body: JSON.stringify({
+                avatar: url
+            })
+        })
+    }
 }
