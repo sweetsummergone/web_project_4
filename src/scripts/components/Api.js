@@ -9,7 +9,35 @@ export default class Api {
             headers: {
                 authorization: this._token 
             }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+
+            return Promise.reject(`Error: ${res.status}`);
         });
+    }
+
+    updateUser(data) {
+        return fetch(`https://around.nomoreparties.co/v1/${this._group}/users/me`, {
+            method: "PATCH",
+            headers: {
+                authorization: this._token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: data.name,
+                about: data.whois
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
+        }); 
     }
 
     getCards() {
@@ -17,6 +45,13 @@ export default class Api {
             headers: {
                 authorization: this._token 
             }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
         });
     }
 
@@ -31,6 +66,13 @@ export default class Api {
             name: title,
             link: url
           })
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
         });
       }
       
@@ -41,6 +83,13 @@ export default class Api {
               'Content-Type': 'application/json',
               authorization: this._token 
             }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
         });
     }
 
@@ -51,6 +100,13 @@ export default class Api {
               'Content-Type': 'application/json',
               authorization: this._token 
             }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
         });
     }
 
@@ -61,6 +117,13 @@ export default class Api {
               'Content-Type': 'application/json',
               authorization: this._token 
             }
+        })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
         });
     }
 
@@ -75,5 +138,16 @@ export default class Api {
                 avatar: url
             })
         })
+        .then(res => {
+            if (res.ok) {
+              return res.json();
+            }
+            
+            return Promise.reject(`Error: ${res.status}`);
+        });
+    }
+
+    awaitPromises() {
+        return Promise.all([this.getUser, this.getCards]);
     }
 }

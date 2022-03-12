@@ -16,26 +16,9 @@ export default class UserInfo {
     setUserInfo(data) {
         this._userName.textContent = data.name;
         this._userJob.textContent = data.whois;
-        this._userImage.src = data.imageUrl;
     }
 
     setAvatar(url) {
-        console.log(url);
         this._userImage.src = url;
-    }
-
-    patchUserInfo(data, {group, token}) {
-        this.setUserInfo(data);
-        fetch(`https://around.nomoreparties.co/v1/${group}/users/me`, {
-            method: "PATCH",
-            headers: {
-                authorization: token,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: data.name,
-                about: data.whois
-            })
-        }); 
     }
 }

@@ -4,6 +4,10 @@
 /* Hidden */
 @import url("../blocks/hidden/hidden.css");
 
+/* Loading */
+@import url("../blocks/loading/loading.css");
+@import url("../blocks/loading/__spinner/loading__spinner.css");
+
 /* Modal */
 @import url("../blocks/modal/modal.css");
 @import url("../blocks/modal/__overlay/modal__overlay.css");

@@ -9,8 +9,6 @@ export default class PopupConfirmation extends Popup {
 
     setEventListeners() {
       super.setEventListeners();
-      // Why exactly this form refreshing the page without "e" param
-      // But another "PopupWithForm" not?
       this._popup.addEventListener("submit", (e) => {
         e.preventDefault();
         this._deleteFunc(this._id)

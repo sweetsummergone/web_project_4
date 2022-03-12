@@ -1,4 +1,5 @@
-
+export const loading = document.querySelector(".loading");
+//
 export const cards = document.querySelector(".cards");
 //
 export const modalEdit = document.querySelector(".modal_edit");

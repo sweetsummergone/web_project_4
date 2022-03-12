@@ -4,7 +4,7 @@ import "./index.css";
 import { validationSettings } from "../scripts/utils/utils.js";
 import {  cards, userName, userActivity, userPhoto, buttonEdit, buttonAdd, avatar,
           modalEdit, modalAdd, modalPopup, modalConfirm,
-          modalName, modalActivity, modalAvatar } from "../scripts/utils/constants.js";
+          modalName, modalActivity, modalAvatar, loading } from "../scripts/utils/constants.js";
 import { cardTemplate } from "../scripts/utils/templates.js";
 import { data as auth } from "../auth.js";
 // import { initialCards } from "../scripts/utils/cards.js"; // Uncomment if it's necessary to work without fetching data.
@@ -40,18 +40,27 @@ const userInfo = new UserInfo ({
 });
 
 // Execution block
-
 let cardsListSection;
 let userId;
 
-api.getUser()
-.then(res => res.json())
-.then((result) => {
+api.awaitPromises()
+.then(() => {
+  api.getUser()
+  .then((result) => {
     userId = result._id;
-    userInfo.setUserInfo({name: result.name, whois: result.about, imageUrl: result.avatar});
-});
-
-renderSection();
+    userInfo.setUserInfo({name: result.name, whois: result.about});
+    userInfo.setAvatar(result.avatar);
+  })
+  .then(() => {
+    renderSection();
+  })
+  .finally(() => {
+    loading.classList.add("hidden");
+  });
+})
+.catch((err) => {
+  console.log(err); // log the error to the console
+})
 
 previewPopup.setEventListeners();
 editPopup.setEventListeners();
@@ -83,7 +92,6 @@ function renderCard(card) {
 
 function renderSection() {
   api.getCards()
-  .then(res => res.json())
   .then(cardsArr => {
     cardsListSection = new Section ({
       items: cardsArr, 
@@ -92,14 +100,6 @@ function renderSection() {
 
     cardsListSection.renderItems();
   });
-}
-
-function renderInfo() {
-  api.getUser()
-  .then(res => res.json())
-  .then(user => {
-
-  })
 }
 
 function handleCardClick(link, name) {
@@ -115,12 +115,10 @@ function handleCardLike(cardId, isLiked) {
   return new Promise((resolve, reject) => {
     if (isLiked) {
       api.removeLike(cardId)
-      .then(res => res.json())
       .then(data => resolve(data.likes.length))
       .catch(err => reject(`Error: ${err}`));
     } else {
       api.addLike(cardId)
-      .then(res => res.json())
       .then(data => resolve(data.likes.length))
       .catch(err => reject(`Error: ${err}`));;
     }
@@ -146,22 +144,41 @@ function openAvatar() {
 }
 
 function saveProfile(data) {
-  userInfo.patchUserInfo(data, auth);
-}
-
-function saveCard(data) {
-  api.saveCard(data)
-  .then(res => res.json())
-  .then(item => {
-    cardsListSection.addItem({_id: item._id, link: data.url, name: data.title, likes: item.likes});
-    renderSection();
+  return new Promise((resolve, reject) => {
+    api.updateUser(data)
+    .then(() => {
+      userInfo.setUserInfo(data);
+      resolve("ok");
+    })
+    .catch(err => reject(`Err: ${err}`));
   });
 }
 
+function saveCard(data) {
+  return new Promise((resolve, reject) => {
+    api.saveCard(data)
+    .then(item => {
+      // I don't understand why here is an error
+      // console.log(item) // OK
+      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes}); // Not OK
+      renderSection();
+      resolve("ok");
+    })
+    .catch(err => {
+      reject(`Err: ${err}`);
+    });
+  })
+}
+
 function saveAvatar(data) {
-  api.updateAvatar(data.url)
-  .then(res => res.json())
-  .then(res => {
-    userInfo.setAvatar(res.avatar);
+  return new Promise((resolve, reject) => {
+    api.updateAvatar(data.url)
+    .then(res => {
+      userInfo.setAvatar(res.avatar);
+      resolve("ok");
+    })
+    .catch(err => {
+      reject(`Err: ${err}`);
+    });
   });
 }
