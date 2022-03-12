@@ -2,8 +2,9 @@
 import "./index.css";
 // Variables, contstants, element pickers
 import { validationSettings } from "../scripts/utils/utils.js";
-import {  cards, userName, userActivity, modalEdit, modalAdd, modalPopup, modalConfirm,
-          modalName, modalActivity, buttonEdit, buttonAdd } from "../scripts/utils/constants.js";
+import {  cards, userName, userActivity, userPhoto, buttonEdit, buttonAdd, avatar,
+          modalEdit, modalAdd, modalPopup, modalConfirm,
+          modalName, modalActivity, modalAvatar } from "../scripts/utils/constants.js";
 import { cardTemplate } from "../scripts/utils/templates.js";
 import { data as auth } from "../auth.js";
 // import { initialCards } from "../scripts/utils/cards.js"; // Uncomment if it's necessary to work without fetching data.
@@ -24,15 +25,18 @@ const api = new Api(auth);
 
 const modalEditValidation = new FormValidator(validationSettings, modalEdit);
 const modalAddValidation = new FormValidator(validationSettings, modalAdd);
+const modalAvatarValidation = new FormValidator(validationSettings, modalAvatar);
 
 const previewPopup = new PopupWithImage(modalPopup);
 const editPopup = new PopupWithForm(modalEdit, saveProfile);
 const addPopup = new PopupWithForm(modalAdd, saveCard);
+const avatarPopup = new PopupWithForm(modalAvatar, saveAvatar);
 const confirmPopup = new PopupConfirmation(modalConfirm, api.deleteCard, renderSection);
 
 const userInfo = new UserInfo ({ 
   userName: userName,
   userJob: userActivity,
+  userImage: userPhoto
 });
 
 // Execution block
@@ -44,7 +48,7 @@ api.getUser()
 .then(res => res.json())
 .then((result) => {
     userId = result._id;
-    userInfo.setUserInfo({name: result.name, whois: result.about});
+    userInfo.setUserInfo({name: result.name, whois: result.about, imageUrl: result.avatar});
 });
 
 renderSection();
@@ -52,13 +56,16 @@ renderSection();
 previewPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
+avatarPopup.setEventListeners();
 confirmPopup.setEventListeners();
 
+avatar.addEventListener("click", openAvatar);
 buttonEdit.addEventListener("click", openEdit);
 buttonAdd.addEventListener("click", openAdd);
 
 modalEditValidation.enableValidation();
 modalAddValidation.enableValidation();
+modalAvatarValidation.enableValidation();
 
 // Functions block
 
@@ -85,6 +92,14 @@ function renderSection() {
 
     cardsListSection.renderItems();
   });
+}
+
+function renderInfo() {
+  api.getUser()
+  .then(res => res.json())
+  .then(user => {
+
+  })
 }
 
 function handleCardClick(link, name) {
@@ -125,6 +140,11 @@ function openAdd() {
   modalAddValidation.resetValidation();
 }
 
+function openAvatar() {
+  avatarPopup.open();
+  modalAvatarValidation.resetValidation();
+}
+
 function saveProfile(data) {
   userInfo.patchUserInfo(data, auth);
 }
@@ -135,5 +155,13 @@ function saveCard(data) {
   .then(item => {
     cardsListSection.addItem({_id: item._id, link: data.url, name: data.title, likes: item.likes});
     renderSection();
+  });
+}
+
+function saveAvatar(data) {
+  api.updateAvatar(data.url)
+  .then(res => res.json())
+  .then(res => {
+    userInfo.setAvatar(res.avatar);
   });
 }

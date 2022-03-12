@@ -7,6 +7,25 @@
     <title>Around the U.S.</title>
   </head>
   <body class="page">
+    <div class="modal modal_avatar">
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <button type="button" class="modal__button-close"></button>
+        <form class="modal__form" name="Avatar" novalidate>
+          <h2 class="modal__title">Change profile picture</h2>
+          <input
+            name="url"
+            class="modal__input modal__input_type_url"
+            id="url-input"
+            type="url"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__input-error url-input-error"></span>
+          <button type="submit" class="modal__button-save">Save</button>
+        </form>
+      </div>
+    </div>
     <div class="modal modal_confirm">
       <div class="modal__overlay"></div>
       <div class="modal__content">
