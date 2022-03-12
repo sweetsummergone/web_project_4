@@ -55,6 +55,9 @@ api.awaitPromises()
     renderSection();
   })
   .finally(() => {
+    setTimeout(() => {
+      loading.remove();
+    }, 1000);
     loading.classList.add("hidden");
   });
 })
