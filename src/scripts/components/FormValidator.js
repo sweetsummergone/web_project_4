@@ -35,33 +35,33 @@ export default class FormValidator {
         });
     };
       
-    _toggleButtonState(inputList, buttonElement) {
-        if (this._hasInvalidInput(inputList)) {
-            buttonElement.classList.add(this._settings.inactiveButtonClass);
-            buttonElement.disabled = true;
+    _toggleButtonState() {
+        if (this._hasInvalidInput(this._inputList)) {
+            this._buttonElement.classList.add(this._settings.inactiveButtonClass);
+            this._buttonElement.disabled = true;
         } else {
-            buttonElement.classList.remove(this._settings.inactiveButtonClass);
-            buttonElement.disabled = false;
+            this._buttonElement.classList.remove(this._settings.inactiveButtonClass);
+            this._buttonElement.disabled = false;
         }
     };
       
     _setEventListeners() {
         // here, to check the button state in the very beginning only if button element exists
         if(this._buttonElement !== null) {
-            this._toggleButtonState(this._inputList, this._buttonElement);
+            this._toggleButtonState();
         }
         
         this._inputList.forEach(inputElement => {
             inputElement.addEventListener("input", () => {
                 this._checkInputValidity(inputElement);
                 // and here, to check it whenever any field input is changed
-                this._toggleButtonState(this._inputList, this._buttonElement);
+                this._toggleButtonState();
             });
         });
     }; 
 
     resetValidation() {
-        this._toggleButtonState(this._inputList, this._buttonElement); // controlling the submit button ==
+        this._toggleButtonState(); // controlling the submit button ==
   
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement) // clearing errors 

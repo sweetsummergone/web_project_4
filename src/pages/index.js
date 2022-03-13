@@ -36,7 +36,7 @@ const previewPopup = new PopupWithImage(modalPopup);
 const editPopup = new PopupWithForm(modalEdit, saveProfile);
 const addPopup = new PopupWithForm(modalAdd, saveCard);
 const avatarPopup = new PopupWithForm(modalAvatar, saveAvatar);
-const confirmPopup = new PopupConfirmation(modalConfirm, api.deleteCard, renderSection);
+const confirmPopup = new PopupConfirmation(modalConfirm, deleteCard);
 
 const userInfo = new UserInfo ({ 
   userName: userName,
@@ -48,27 +48,28 @@ const userInfo = new UserInfo ({
 let cardsListSection;
 let userId;
 
-api.awaitPromises()
-.then(() => {
-  api.getUser()
-  .then((result) => {
-    userId = result._id;
-    userInfo.setUserInfo({name: result.name, whois: result.about});
-    userInfo.setAvatar(result.avatar);
-  })
-  .then(() => {
-    renderSection();
-  })
-  .finally(() => {
-    setTimeout(() => {
-      loading.remove();
-    }, 1000);
-    loading.classList.add("hidden");
-  });
+api.getAppData()
+.then(([userData, cardsArr]) => {
+  userId = userData._id;
+  userInfo.setUserInfo({name: userData.name, about: userData.about});
+  userInfo.setAvatar(userData.avatar);
+  cardsListSection = new Section ({
+    items: cardsArr, 
+    renderer: renderCard,
+  }, cards);
+
+  cardsListSection.renderItems();
 })
-.catch((err) => {
-  console.log(err); // log the error to the console
+.then(() => new Promise(resolve => setTimeout(resolve, 500))) // Need for full data rendering
+.catch(err => {
+  console.log(`Err: ${err}`);
 })
+.finally(() => {
+  setTimeout(() => {
+    loading.remove();
+  }, 350);
+  loading.classList.add("hidden");
+});
 
 previewPopup.setEventListeners();
 editPopup.setEventListeners();
@@ -98,25 +99,12 @@ function renderCard(card) {
   return cardElement;
 }
 
-function renderSection() {
-  api.getCards()
-  .then(cardsArr => {
-    cardsListSection = new Section ({
-      items: cardsArr, 
-      renderer: renderCard,
-    }, cards);
-
-    cardsListSection.renderItems();
-  });
-}
-
 function handleCardClick(link, name) {
   previewPopup.open(link, name);
 }
 
 function handleCardDelete(id) {
-  const index = cardsListSection._renderedItems.map(function(e) { return e._id; }).indexOf(id);
-  confirmPopup.open(id, index);
+  confirmPopup.open(id);
 }
 
 function handleCardLike(cardId, isLiked) {
@@ -124,11 +112,11 @@ function handleCardLike(cardId, isLiked) {
     if (isLiked) {
       api.removeLike(cardId)
       .then(data => resolve(data.likes.length))
-      .catch(err => reject(`Error: ${err}`));
+      .catch(err => console.log(`Error: ${err}`));
     } else {
       api.addLike(cardId)
       .then(data => resolve(data.likes.length))
-      .catch(err => reject(`Error: ${err}`));;
+      .catch(err => console.log(`Error: ${err}`));;
     }
   }) 
 }
@@ -154,11 +142,11 @@ function openAvatar() {
 function saveProfile(data) {
   return new Promise((resolve, reject) => {
     api.updateUser(data)
-    .then(() => {
-      userInfo.setUserInfo(data);
+    .then((res) => {
+      userInfo.setUserInfo({name: res.name, about: res.about, avatar: res.avatar, _id: res._id});
       resolve("ok");
     })
-    .catch(err => reject(`Err: ${err}`));
+    .catch(err => console.log(`Err: ${err}`));
   });
 }
 
@@ -166,12 +154,11 @@ function saveCard(data) {
   return new Promise((resolve, reject) => {
     api.saveCard(data)
     .then(item => {
-      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes}); 
-      renderSection();
+      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes});
       resolve("ok");
     })
     .catch(err => {
-      reject(`Err: ${err}`);
+      console.log(`Err: ${err}`);
     });
   })
 }
@@ -184,7 +171,20 @@ function saveAvatar(data) {
       resolve("ok");
     })
     .catch(err => {
-      reject(`Err: ${err}`);
+      console.log(`Err: ${err}`);
     });
   });
+}
+
+function deleteCard(data) {
+  return new Promise((resolve, reject) => {
+    api.deleteCard(data._id)
+    .then(() => {
+      data._element.remove();
+      resolve("ok");
+    })
+    .catch(err => {
+      console.log(`Err: ${err}`);
+    });
+  })
 }

@@ -5,13 +5,12 @@ export default class PopupWithForm extends Popup {
       super(popup);
       this._submitFunc = submitFunc;
       //
+      this._inputList = this._popup.querySelectorAll(".modal__input");
+      this._buttonSave = this._popup.querySelector(".modal__button-save");
       this._form = this._popup.querySelector(".modal__form");
     }
     
     _getInputValues() {
-      // Get all field elements
-      this._inputList = this._popup.querySelectorAll(".modal__input");
-
       // Create an empty object
       this._formValues = {};
 
@@ -27,11 +26,13 @@ export default class PopupWithForm extends Popup {
     setEventListeners() {
       super.setEventListeners();
       this._popup.addEventListener("submit", () => {
-        this._form.querySelector(".modal__button-save").textContent = "Saving...";
+        this._buttonSave.textContent = "Saving...";
         this._submitFunc(this._getInputValues())
         .then(() => {
-          this._form.querySelector(".modal__button-save").textContent = "Save";
           this.close();
+        })
+        .finally(() => {
+          this._buttonSave.textContent = "Save";
         });
       });
     }

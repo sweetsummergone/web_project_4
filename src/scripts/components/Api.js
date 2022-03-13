@@ -4,17 +4,19 @@ export default class Api {
         this._headers = headers;
     }
     
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+          }
+
+          return Promise.reject(`Error: ${res.status}`);
+    }
+
     getUser() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        .then(this._checkResponse);
     }
 
     updateUser(data) {
@@ -26,26 +28,16 @@ export default class Api {
                 about: data.whois
             })
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        }); 
+        
+        .then(this._checkResponse);
     }
 
     getCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
     }
 
     saveCard({title, url}) {
@@ -57,13 +49,8 @@ export default class Api {
             link: url
           })
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
       }
       
     deleteCard = (id) => {
@@ -71,13 +58,8 @@ export default class Api {
             method: "DELETE",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
     }
 
     addLike = (cardId) => {
@@ -85,13 +67,8 @@ export default class Api {
             method: "PUT",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
     }
 
     removeLike = (cardId) => {
@@ -99,13 +76,8 @@ export default class Api {
             method: "DELETE",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
     }
 
     updateAvatar = (url) => {
@@ -116,16 +88,11 @@ export default class Api {
                 avatar: url
             })
         })
-        .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            
-            return Promise.reject(`Error: ${res.status}`);
-        });
+        
+        .then(this._checkResponse);
     }
 
-    awaitPromises() {
-        return Promise.all([this.getUser, this.getCards]);
+    getAppData() {
+        return Promise.all([this.getUser(), this.getCards()]);
     }
 }
