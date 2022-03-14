@@ -50,6 +50,10 @@ export default class Card {
         });
     }
 
+    removeCard() {
+        this._element.remove();
+    }
+
     generateCard() {
         this._element = this._getTemplate();
         //

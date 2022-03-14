@@ -15,6 +15,8 @@ export default class PopupConfirmation extends Popup {
         this._deleteFunc(this._id)
         .then(() => {  
           this.close();
+        })
+        .finally(() => {
           this._buttonSave.textContent = "Yes";
         });
       });

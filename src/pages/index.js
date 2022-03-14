@@ -51,8 +51,7 @@ let userId;
 api.getAppData()
 .then(([userData, cardsArr]) => {
   userId = userData._id;
-  userInfo.setUserInfo({name: userData.name, about: userData.about});
-  userInfo.setAvatar(userData.avatar);
+  userInfo.setUserInfo(userData);
   cardsListSection = new Section ({
     items: cardsArr, 
     renderer: renderCard,
@@ -143,7 +142,7 @@ function saveProfile(data) {
   return new Promise((resolve, reject) => {
     api.updateUser(data)
     .then((res) => {
-      userInfo.setUserInfo({name: res.name, about: res.about, avatar: res.avatar, _id: res._id});
+      userInfo.setUserInfo(res);
       resolve("ok");
     })
     .catch(err => console.log(`Err: ${err}`));
@@ -154,7 +153,7 @@ function saveCard(data) {
   return new Promise((resolve, reject) => {
     api.saveCard(data)
     .then(item => {
-      cardsListSection.addItem({_id: item._id, link: item.link, name: item.name, likes: item.likes});
+      cardsListSection.addItem(item);
       resolve("ok");
     })
     .catch(err => {
@@ -167,7 +166,8 @@ function saveAvatar(data) {
   return new Promise((resolve, reject) => {
     api.updateAvatar(data.url)
     .then(res => {
-      userInfo.setAvatar(res.avatar);
+      console.log(res);
+      userInfo.setUserInfo(res);
       resolve("ok");
     })
     .catch(err => {
@@ -180,7 +180,7 @@ function deleteCard(data) {
   return new Promise((resolve, reject) => {
     api.deleteCard(data._id)
     .then(() => {
-      data._element.remove();
+      data.removeCard();
       resolve("ok");
     })
     .catch(err => {
